@@ -1,4 +1,4 @@
-export type Language = 'ru' | 'en';
+export type Language = 'en';
 
 export interface Translations {
   // Header
@@ -220,242 +220,6 @@ export interface Translations {
 }
 
 export const translations: Record<Language, Translations> = {
-  ru: {
-    // Header
-    appTitle: 'Grok Cartoon Studio',
-    appSubtitle: 'Конструктор мультипликации на базе Grok AI',
-    versionBadge: '1.5 & TTS',
-    apiKeyActive: 'API-ключ активен',
-    setApiKey: 'Указать xAI API Key',
-    apiKeyTooltip: 'Настройка xAI API ключа',
-    exportJson: 'Экспорт JSON',
-    exportJsonTooltip: 'Экспорт сценария и параметров сцен в JSON файл для бота',
-    importJson: 'Загрузить JSON',
-    resetProject: 'Сбросить проект',
-    resetProjectConfirm: 'Сбросить весь проект к исходным настройкам?',
-    generateCartoon: 'Генерация мультика...',
-    generatingCartoon: 'Генерация мультика...',
-    buildCartoon: 'Собрать мультфильм',
-    lengthLabel: 'длина:',
-    durationFormatSec: '{s} сек',
-    durationFormatMinSec: '{m} мин {s} сек',
-    durationFormatMin: '{m} мин',
-    scenesCountOne: 'сцена',
-    scenesCountFew: 'сцены',
-    scenesCountMany: 'сцен',
-    scenesOfTotal: '{count} из {total} сцен',
-    themeToggleLight: 'Переключить на светлую тему',
-    themeToggleDark: 'Переключить на тёмную тему',
-    languageToggle: 'Язык интерфейса',
-
-    // Character section
-    characterSectionTitle: 'Главный персонаж',
-    characterSectionSubtitle:
-      'Загрузите референсы персонажа (вид спереди и вид сзади) для сохранения визуальной консистентности в сценах',
-    characterUploaded: 'Загружен',
-    characterNotUploaded: 'Не загружен',
-    characterNameLabel: 'Имя персонажа:',
-    characterNamePlaceholder: 'Главный герой',
-    frontViewTitle: 'Вид спереди (Front View)',
-    frontViewDesc: 'Основной ракурс персонажа для диалогов и портретных планов',
-    frontViewUpload: 'Загрузить вид спереди',
-    backViewTitle: 'Вид сзади (Back View)',
-    backViewDesc: 'Ракурс со спины для сцен ухода, движения камеры вслед за героем',
-    backViewUpload: 'Загрузить вид сзади',
-    replacePhoto: 'Заменить фото',
-    deletePhoto: 'Удалить',
-    characterTip:
-      'Совет: используйте четкие изображения на нейтральном фоне. Модель Grok AI использует эти кадры как эталон внешности.',
-
-    // Background music section
-    bgMusicSectionTitle: 'Фоновая музыка мультфильма',
-    bgMusicSectionSubtitle:
-      'Аудиодорожка будет наложена на весь мультфильм при финальной склейке поверх звуков видео и реплик персонажей.',
-    bgMusicEnabled: 'Наложить фоновую музыку:',
-    bgMusicActiveBadge: 'Активно',
-    bgMusicUploadTitle: 'Загрузите аудиофайл фоновой музыки (MP3, WAV, AAC)',
-    bgMusicUploadDesc: 'Музыка зациклится или плавно завершится в конце мультфильма',
-    bgMusicReplace: 'Заменить музыку',
-    bgMusicVolumeLabel: 'Громкость музыки:',
-    bgMusicLoopLabel: 'Зациклить трек до конца мультфильма',
-    bgMusicTip:
-      '💡 Музыка автоматически микшируется на фоне с заданной громкостью (рекомендуется 20–30%), чтобы не перебивать речь персонажей.',
-
-    // Scene constructor
-    sceneConstructorTitle: 'Конструктор сцен',
-    sceneConstructorSubtitle:
-      'Модели 1.5 Lite / 1.5 с бесшовным переходом по конечному кадру и диалогами с независимыми таймингами',
-    activeScenesCounter: '{enabled} из {total} включено',
-    timingLabel: 'хронометраж: {sec} сек',
-    addSceneButton: 'Добавить сцену',
-
-    // Scene card
-    sceneTitlePlaceholder: 'Название сцены',
-    sceneEnabledToggle: 'Включена в генерацию',
-    sceneDisabledToggle: 'Выключена (пропускается)',
-    sceneDisabledAlert:
-      'Сцена выключена: она будет пропущена при сборке мультфильма и не учитывается в общей стоимости и хронометраже.',
-    enableSceneButton: 'Включить сцену',
-    moveUp: 'Переместить выше',
-    moveDown: 'Переместить ниже',
-    duplicateScene: 'Дублировать сцену',
-    deleteScene: 'Удалить сцену',
-    statusQueued: 'В очереди...',
-    statusExtractingFrame: 'Извлечение кадра...',
-    statusGeneratingImage: 'Генерация изображения...',
-    statusGeneratingVideo: 'Генерация видео...',
-    statusRenderingVideo: 'Рендеринг видео...',
-    statusGeneratingAudio: 'Генерация озвучки...',
-    statusMuxing: 'Сведение сцены...',
-    statusCompleted: 'Сцена готова',
-    statusError: 'Ошибка генерации',
-    statusWaitingDependency: 'Ожидание зависимостей...',
-
-    // Scene Card - Left Column (Video)
-    videoColTitle: 'Видео сцены',
-    modelLabel: 'Модель:',
-    modelLiteDesc: '1.5 Lite ($0.02/сек)',
-    modelProDesc: '1.5 ($0.08/сек, Start & End Frame)',
-    generateVideoToggle: 'Генерация видео нейросетью',
-    customVideoSelected: 'Готовое видео выбрано',
-    replaceVideo: 'Заменить видео',
-    selectCustomVideo: 'Выбрать готовое видео (MP4 / WebM)',
-    videoDurationLabel: 'Длительность сцены:',
-    videoAudioToggle: 'Аудио модели видео:',
-    videoAudioPlaysWithTts: 'звучит вместе с озвучкой grok-tts',
-    startImageSectionLabel: 'Начальный кадр видео:',
-    startImageModeCharRef: 'Из персонажа',
-    startImageModeCharRefSub: 'Ракурс из профиля',
-    startImageModeCustomGen: 'По инструкции',
-    startImageModeCustomGenSub: 'Сгенерировать',
-    startImageModePrevFrame: 'Конец сцены #{idx}',
-    startImageModePrevFrameSub: 'Бесшовный переход',
-    startImageModePrevFrameDisabled: '(Для сцен №2+)',
-    startImageModeUpload: 'Своя картинка',
-    startImageModeUploadSub: 'Загрузить файл',
-    charViewTitle: 'Ракурс персонажа для первого кадра видео:',
-    charViewFront: 'Вид спереди',
-    charViewBack: 'Вид сзади',
-    charViewNone: 'Без персонажа',
-    seamlessPrevFrameTitle: 'Бесшовная склейка со сценой #{idx}',
-    seamlessPrevFrameDesc:
-      'Когда сцена #{idx} сгенерируется, её финальный кадр будет автоматически извлечён и подан на вход этой сцены как начальный.',
-    customStartParamsTitle: 'Параметры генерации стартового кадра',
-    multiRefsBadge: 'Мульти-референсы grok-imagine-image-2.0',
-    charInFrameTitle: 'Главный персонаж в кадре:',
-    usePrevFrameCheckbox: 'Взять финальный кадр сцены #{idx} как фон / окружение',
-    usePrevFrameActive: 'Включено',
-    usePrevFrameDesc:
-      'Финальный кадр сцены #{idx} автоматически извлечётся через FFmpeg и поступит в модель как образец локации и окружения.',
-    customRefsTitle: 'Свои фото-референсы к стартовому кадру:',
-    addPhotoRefButton: '+ Фото',
-    customRefsDesc:
-      'Загрузите любые изображения (второй персонаж, предметы, шаблон фона). Все они будут поданы в нейросеть вместе.',
-    startInstructionLabel: 'Текстовая инструкция для генерации стартового кадра:',
-    startInstructionPlaceholder:
-      'Опишите, как расположить героя и что должно быть на первом кадре...',
-    startInstructionHint:
-      '💡 Модель grok-imagine-image-2.0 поддерживает объединение нескольких изображений: можно одновременно задействовать персонажа, кадр окончания сцены #{idx} и ваши загруженные файлы.',
-    lastFrameSectionTitle: 'Конечный кадр сцены (Last Frame):',
-    lastFrameNone: 'Без фиксации конца',
-    lastFrameCharRef: 'Из профиля героя',
-    lastFrameCustomGen: 'Сгенерировать по описанию',
-    lastFrameUpload: 'Загрузить картинку',
-    lastFrameCharViewTitle: 'Ракурс мальчика для последнего кадра видео:',
-    lastFrameBoyFront: 'Мальчик спереди',
-    lastFrameBoyBack: 'Мальчик сзади',
-    lastFrameBoyNone: 'Без мальчика',
-    lastFrameCharViewDesc:
-      'Выбранное фото мальчика передается в нейросеть grok-imagine-image-2.0 как визуальный образец персонажа для финального кадра.',
-    lastFrameInstructionLabel: 'Инструкция для генерации финального кадра сцены:',
-    lastFrameInstructionPlaceholder:
-      'Опишите, к какому состоянию/кадру персонаж должен прийти в конце сцены...',
-    lastFrameRefsTitle: 'Фото-референсы к описанию последнего кадра:',
-    lastFrameRefsDesc:
-      '💡 Загрузите фотографии персонажей, предметов или локации — модель grok-imagine-image-2.0 использует их как визуальные образцы при генерации последнего кадра.',
-    lastFrameUploadTitle: 'Финальный кадр',
-    videoPromptLabel: 'Текстовое описание сцены (видеопромпт):',
-    videoPromptPlaceholder:
-      'Опишите действие, движения камеры, анимацию персонажа...',
-    transitionsTitle: 'Переходы экрана (затемнение в чёрный цвет):',
-    transitionsActive: 'Активно',
-    fadeInLabel: 'Выход из чёрного (в начале)',
-    fadeInDesc: 'Плавный выход сцены из глубокого чёрного экрана',
-    fadeOutLabel: 'Затемнение в чёрный (в конце)',
-    fadeOutDesc: 'Плавный уход сцены в глубокий чёрный цвет',
-    durationLabel: 'Длительность:',
-
-    // Scene Card - Right Column (Audio / Grok-TTS)
-    audioColTitle: 'Озвучка сцены (grok-tts)',
-    useTtsToggle: 'Использовать grok-tts:',
-    ttsDisabledNotice: 'Озвучка grok-tts для этой сцены отключена.',
-    ttsDisabledSub: 'Будет использоваться оригинальное аудио видеоролика (если включено).',
-    parallelAudioNoticeTitle: 'Параллельное наложение звука:',
-    parallelAudioNoticeDesc:
-      'Звуковая дорожка видеоролика и реплики grok-tts накладываются друг на друга и звучат вместе на полной громкости (без заглушения).',
-    replicasHeader: 'Реплики и диалоги в сцене ({count}):',
-    addReplicaButton: 'Добавить реплику',
-    replicaTitle: 'Реплика #{number}',
-    deleteReplica: 'Удалить реплику',
-    voiceLabel: 'Голос xAI:',
-    speedLabel: 'Скорость:',
-    offsetLabel: 'Старт в видео:',
-    normalizeTextLabel: 'Normalize text (числа в слова)',
-    replicaTextLabel: 'Фраза персонажа для озвучки:',
-    replicaTextPlaceholder: 'Введите текст реплики на русском языке...',
-
-    // Final player & Logs
-    finalPlayerTitle: 'Финальный результат (Склеенный мультфильм)',
-    downloadMp4Button: 'Скачать мультфильм (MP4)',
-    logsTitle: 'Консоль генерации и сборки в реальном времени',
-    clearLogsButton: 'Очистить логи',
-    pipelineStartedLog: 'Запуск генерации мультфильма...',
-    noEnabledScenesAlert: 'Включите хотя бы одну сцену для генерации мультфильма',
-    importSuccessAlert: 'Успешно загружен сценарий: {count} сцен(ы)!',
-    importErrorAlert: 'Ошибка парсинга JSON файла. Проверьте формат файла.',
-    noScenesInJsonAlert: 'Не найден список сцен в JSON файле.',
-
-    // Api key modal
-    apiKeyModalTitle: 'Настройка xAI API Key',
-    apiKeyModalSubtitle: 'Хранится исключительно в вашем браузере',
-    apiKeyModalDesc:
-      'Для генерации видео и озвучки необходим API ключ xAI. Ключ сохраняется в локальном хранилище (localStorage) вашего браузера.',
-    apiKeyModalInputLabel: 'xAI API Ключ (начинается с xai-...):',
-    apiKeyInputLabel: 'xAI API Key',
-    apiKeyModalPlaceholder: 'xai-...',
-    apiKeyModalConsoleLink: 'Получить API-ключ в консоли xAI (console.x.ai)',
-    apiKeyModalTestButton: 'Проверить ключ',
-    apiKeyModalTesting: 'Проверка...',
-    apiKeyModalSaveButton: 'Сохранить ключ',
-    apiKeyModalCancelButton: 'Отмена',
-    apiKeyModalSuccess: 'API-ключ успешно проверен и работает!',
-    apiKeyModalInvalid: 'Ошибка проверки API-ключа',
-    apiKeySecureNote: 'Безопасно: ключ не передается сторонним сервисам',
-    apiKeyGetLink: 'Получить в xAI',
-    apiKeyClear: 'Очистить ключ',
-    apiKeyCancel: 'Отмена',
-    apiKeySave: 'Сохранить ключ',
-    apiKeySaved: 'Сохранено!',
-
-    // Console panel
-    consoleTitle: 'Консоль выполнения и лента результатов',
-    consoleSubtitle: 'Потоковый вывод этапов генерации, промежуточных файлов и итогового мультфильма',
-    consoleGeneratingBadge: 'Параллельная генерация в xAI...',
-    consoleFilterAll: 'Все',
-    consoleFilterImages: 'Кадры',
-    consoleFilterVideo: 'Видео',
-    consoleFilterAudio: 'Озвучка',
-    consoleFilterConcat: 'Сборка',
-    consoleFilterErrors: 'Ошибки',
-    consoleAutoscroll: 'Автоскролл',
-    consoleClearTooltip: 'Очистить логи',
-    consoleFinalReady: 'Финальный мультфильм готов!',
-    consoleFinalReadyDesc:
-      'Все сцены успешно сгенерированы, озвучены и склеены в единый видеофайл через FFmpeg',
-    consoleDownloadMp4: 'Скачать готовый мультфильм (.mp4)',
-    consoleSceneStatusTrack: 'Статус сцен:',
-    consoleEmptyLog: 'Журнал пуст. Нажмите «Собрать мультфильм», чтобы начать процесс.',
-  },
   en: {
     // Header
     appTitle: 'Grok Cartoon Studio',
@@ -472,14 +236,14 @@ export const translations: Record<Language, Translations> = {
     generateCartoon: 'Generating Cartoon...',
     generatingCartoon: 'Generating Cartoon...',
     buildCartoon: 'Build Cartoon',
-    lengthLabel: 'duration:',
-    durationFormatSec: '{s}s',
-    durationFormatMinSec: '{m}m {s}s',
-    durationFormatMin: '{m}m',
+    lengthLabel: 'duration',
+    durationFormatSec: '{count}s',
+    durationFormatMinSec: '{min}m {sec}s',
+    durationFormatMin: '{min}m',
     scenesCountOne: 'scene',
     scenesCountFew: 'scenes',
     scenesCountMany: 'scenes',
-    scenesOfTotal: '{count} of {total} scenes',
+    scenesOfTotal: 'of {total} scenes',
     themeToggleLight: 'Switch to light theme',
     themeToggleDark: 'Switch to dark theme',
     languageToggle: 'Interface language',
@@ -522,7 +286,7 @@ export const translations: Record<Language, Translations> = {
     sceneConstructorSubtitle:
       '1.5 Lite / 1.5 models with seamless last frame transition and independent dialogue timings',
     activeScenesCounter: '{enabled} of {total} enabled',
-    timingLabel: 'duration: {sec}s',
+    timingLabel: 'Duration',
     addSceneButton: 'Add Scene',
 
     // Scene card

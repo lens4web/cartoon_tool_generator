@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
                    req.headers.get('x-api-key');
 
     if (!apiKey) {
-      return NextResponse.json({ error: 'xAI API Key не передан' }, { status: 401 });
+      return NextResponse.json({ error: 'xAI API Key is missing' }, { status: 401 });
     }
 
     const body = await req.json();
@@ -20,15 +20,15 @@ export async function POST(req: NextRequest) {
     } = body;
 
     if (!text || typeof text !== 'string' || !text.trim()) {
-      return NextResponse.json({ error: 'Текст для озвучки обязателен' }, { status: 400 });
+      return NextResponse.json({ error: 'Text for voiceover is required' }, { status: 400 });
     }
 
-    // Default params per requirement:
-    // MP3, 24 kHz, 128 kbps, Speech language Russian, Normalize text = true (or passed boolean)
+    // Default params:
+    // MP3, 24 kHz, 128 kbps, Speech language English, Normalize text = true (or passed boolean)
     const payload = {
       text: text.trim(),
       voice_id: voiceId,
-      language: 'ru',
+      language: 'en',
       output_format: {
         codec: 'mp3',
         sample_rate: 24000,
@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
 
     if (!response.ok) {
       const errText = await response.text();
-      let errMsg = `Ошибка генерации речи (${response.status})`;
+      let errMsg = `Speech generation error (${response.status})`;
       try {
         const parsed = JSON.parse(errText);
         errMsg = parsed.error?.message || parsed.message || parsed.detail || errText;
@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
     const buffer = Buffer.from(arrayBuffer);
 
     if (buffer.length === 0) {
-      return NextResponse.json({ error: 'xAI вернул пустой аудиофайл' }, { status: 502 });
+      return NextResponse.json({ error: 'xAI returned an empty audio file' }, { status: 502 });
     }
 
     const base64Audio = buffer.toString('base64');
@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
       bytes: buffer.length,
     });
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : 'Внутренняя ошибка генерации аудио TTS';
+    const msg = error instanceof Error ? error.message : 'Internal TTS audio generation error';
     return NextResponse.json({ error: msg }, { status: 500 });
   }
 }

@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
                    req.headers.get('x-api-key');
 
     if (!apiKey) {
-      return NextResponse.json({ error: 'xAI API Key не передан' }, { status: 401 });
+      return NextResponse.json({ error: 'xAI API Key is missing' }, { status: 401 });
     }
 
     const body = await req.json();
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
     } = body;
 
     if (!prompt || typeof prompt !== 'string') {
-      return NextResponse.json({ error: 'Требуется текстовая инструкция' }, { status: 400 });
+      return NextResponse.json({ error: 'Text prompt is required' }, { status: 400 });
     }
 
     const images: { type: string; url: string }[] = [];
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
 
     if (!response.ok) {
       const errText = await response.text();
-      let errMsg = `Ошибка xAI (${response.status})`;
+      let errMsg = `xAI API error (${response.status})`;
       try {
         const parsed = JSON.parse(errText);
         errMsg = parsed.error?.message || parsed.message || parsed.detail || errText;
@@ -80,7 +80,7 @@ export async function POST(req: NextRequest) {
     const item = data.data?.[0];
 
     if (!item) {
-      return NextResponse.json({ error: 'xAI не вернул сгенерированное изображение' }, { status: 502 });
+      return NextResponse.json({ error: 'xAI did not return a generated image' }, { status: 502 });
     }
 
     let resultUrl = '';
@@ -95,7 +95,7 @@ export async function POST(req: NextRequest) {
       url: resultUrl,
     });
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : 'Внутренняя ошибка генерации изображения';
+    const msg = error instanceof Error ? error.message : 'Internal image generation error';
     return NextResponse.json({ error: msg }, { status: 500 });
   }
 }

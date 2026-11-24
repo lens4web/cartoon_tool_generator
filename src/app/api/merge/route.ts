@@ -38,12 +38,12 @@ async function writeMediaToFile(input: string, targetPath: string): Promise<stri
   if (input.startsWith('data:')) {
     const commaIdx = input.indexOf(',');
     if (commaIdx === -1) {
-      throw new Error('Некорректный base64 data URI');
+      throw new Error('Invalid base64 data URI');
     }
     const base64Data = input.substring(commaIdx + 1);
     const buffer = Buffer.from(base64Data, 'base64');
     if (buffer.length > 200 * 1024 * 1024) {
-      throw new Error('Размер медиа файла превышает допустимый лимит (200 MB)');
+      throw new Error('Media file size exceeds the allowed limit (200 MB)');
     }
     await fs.writeFile(targetPath, buffer);
     return targetPath;
@@ -54,7 +54,7 @@ async function writeMediaToFile(input: string, targetPath: string): Promise<stri
     await fs.writeFile(targetPath, buffer);
     return targetPath;
   } else {
-    throw new Error('Неподдерживаемый или небезопасный формат медиа ресурса (разрешены только data URI и https)');
+    throw new Error('Unsupported or unsafe media resource format (only data URI and https are allowed)');
   }
 }
 
@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
     const backgroundMusic: BackgroundMusicPayload | undefined = body.backgroundMusic;
 
     if (!Array.isArray(scenes) || scenes.length === 0) {
-      return NextResponse.json({ error: 'Список сцен пуст' }, { status: 400 });
+      return NextResponse.json({ error: 'Scenes list is empty' }, { status: 400 });
     }
 
     // Sort scenes by index order
@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
     for (let i = 0; i < scenes.length; i++) {
       const scene = scenes[i];
       if (!scene.videoUrl) {
-        throw new Error(`У сцены #${scene.index + 1} отсутствует видеофайл`);
+        throw new Error(`Scene #${scene.index + 1} is missing a video file`);
       }
 
       const rawVideoPath = path.join(tempDir, `raw-scene-${i}.mp4`);
@@ -141,7 +141,7 @@ export async function POST(req: NextRequest) {
       },
     });
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : 'Ошибка склеивания сцен мультфильма';
+    const msg = error instanceof Error ? error.message : 'Error merging cartoon scenes';
     console.error('Merge error:', error);
     return NextResponse.json({ error: msg }, { status: 500 });
   } finally {

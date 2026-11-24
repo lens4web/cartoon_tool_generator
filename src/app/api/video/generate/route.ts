@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
                    req.headers.get('x-api-key');
 
     if (!apiKey) {
-      return NextResponse.json({ error: 'xAI API Key не передан' }, { status: 401 });
+      return NextResponse.json({ error: 'xAI API Key is missing' }, { status: 401 });
     }
 
     const body = await req.json();
@@ -22,11 +22,11 @@ export async function POST(req: NextRequest) {
     } = body;
 
     if (!prompt || typeof prompt !== 'string') {
-      return NextResponse.json({ error: 'Промпт для видео обязателен' }, { status: 400 });
+      return NextResponse.json({ error: 'Video prompt is required' }, { status: 400 });
     }
 
     if (!startImageUrl) {
-      return NextResponse.json({ error: 'Стартовое изображение обязательно для видео' }, { status: 400 });
+      return NextResponse.json({ error: 'Start image is required for video generation' }, { status: 400 });
     }
 
     const chosenModel = model === 'grok-imagine-video-1.5' ? 'grok-imagine-video-1.5' : 'grok-imagine-video-1.5-lite';
@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
 
     if (!response.ok) {
       const errText = await response.text();
-      let errMsg = `Ошибка запуска видео (${response.status})`;
+      let errMsg = `Video launch error (${response.status})`;
       try {
         const parsed = JSON.parse(errText);
         errMsg = parsed.error?.message || parsed.message || parsed.detail || errText;
@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
     const requestId = data.request_id;
 
     if (!requestId) {
-      return NextResponse.json({ error: 'xAI не вернул request_id задачи видео' }, { status: 502 });
+      return NextResponse.json({ error: 'xAI did not return video task request_id' }, { status: 502 });
     }
 
     return NextResponse.json({
@@ -80,7 +80,7 @@ export async function POST(req: NextRequest) {
       model: chosenModel,
     });
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : 'Внутренняя ошибка запуска генерации видео';
+    const msg = error instanceof Error ? error.message : 'Internal video generation start error';
     return NextResponse.json({ error: msg }, { status: 500 });
   }
 }

@@ -23,7 +23,7 @@ export const CharacterSection: React.FC<CharacterSectionProps> = ({
     if (!file) return;
 
     if (!file.type.startsWith('image/')) {
-      alert('Пожалуйста, выберите файл изображения (JPEG, PNG или WebP)');
+      alert('Please select an image file (JPEG, PNG, or WebP)');
       return;
     }
 

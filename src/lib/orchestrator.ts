@@ -36,24 +36,24 @@ export async function pollVideoTask(
     });
 
     if (!res.ok) {
-      const err = await res.json().catch(() => ({ error: 'Сетевой сбой при опросе статуса' }));
-      throw new Error(err.error || `Ошибка опроса статуса: HTTP ${res.status}`);
+      const err = await res.json().catch(() => ({ error: 'Network failure while polling status' }));
+      throw new Error(err.error || `Status polling error: HTTP ${res.status}`);
     }
 
     const data = await res.json();
     onStatusUpdate(data.status);
 
     if (data.status === 'done') {
-      if (!data.videoUrl) throw new Error('xAI вернул статус done, но отсутствует ссылка на видео');
+      if (!data.videoUrl) throw new Error('xAI returned done status, but video URL is missing');
       return data.videoUrl;
     }
 
     if (data.status === 'failed' || data.status === 'expired') {
-      throw new Error(`Генерация видео завершилась ошибкой: ${data.status}`);
+      throw new Error(`Video generation failed with status: ${data.status}`);
     }
   }
 
-  throw new Error('Превышено время ожидания готовности видео (timeout 15 мин)');
+  throw new Error('Video generation timed out (15 min limit)');
 }
 
 export interface PreparedSceneResult {
@@ -69,7 +69,7 @@ export async function generateScenePipeline(
   getPrevSceneVideo?: () => Promise<string>,
   onVideoReady?: (videoUrl: string) => void
 ): Promise<PreparedSceneResult> {
-  callbacks.onSceneUpdate(scene.id, { status: 'queued', statusText: 'В очереди...' });
+  callbacks.onSceneUpdate(scene.id, { status: 'queued', statusText: 'Queued...' });
 
   // 1. Concurrent Audio Generation (grok-tts) for all dialogue tracks in this scene
   let ttsPromise: Promise<{ audioUrl: string; audioOffset: number }[]> = Promise.resolve([]);
@@ -97,14 +97,14 @@ export async function generateScenePipeline(
       ttsPromise = Promise.all(
         activeTracks.map(async (track, tIdx) => {
           callbacks.onSceneUpdate(scene.id, {
-            statusText: `Синтез аудио (реплика #${tIdx + 1})...`,
+            statusText: `Synthesizing audio (replica #${tIdx + 1})...`,
           });
           callbacks.onLog({
             sceneIndex: scene.order,
             sceneTitle: scene.title,
             stage: 'TTS_AUDIO',
-            stageLabel: `Сцена ${scene.order + 1} • Реплика #${tIdx + 1}`,
-            message: `Озвучка [${track.voiceId}, ${track.speed}x, старт: ${track.audioOffset}с]: «${track.phrase.slice(0, 45)}${track.phrase.length > 45 ? '...' : ''}»`,
+            stageLabel: `Scene ${scene.order + 1} • Replica #${tIdx + 1}`,
+            message: `Voiceover [${track.voiceId}, ${track.speed}x, start: ${track.audioOffset}s]: "${track.phrase.slice(0, 45)}${track.phrase.length > 45 ? '...' : ''}"`,
             level: 'info',
           });
 
@@ -124,15 +124,15 @@ export async function generateScenePipeline(
 
           const data = await res.json();
           if (!res.ok || !data.success) {
-            throw new Error(data.error || `Ошибка генерации речи для реплики #${tIdx + 1}`);
+            throw new Error(data.error || `Speech generation error for replica #${tIdx + 1}`);
           }
 
           callbacks.onLog({
             sceneIndex: scene.order,
             sceneTitle: scene.title,
             stage: 'TTS_AUDIO',
-            stageLabel: `Сцена ${scene.order + 1} • Реплика #${tIdx + 1} готова`,
-            message: `Синтезирована дорожка (${(data.bytes / 1024).toFixed(1)} КБ, старт: ${track.audioOffset}с)`,
+            stageLabel: `Scene ${scene.order + 1} • Replica #${tIdx + 1} ready`,
+            message: `Audio track synthesized (${(data.bytes / 1024).toFixed(1)} KB, start: ${track.audioOffset}s)`,
             level: 'success',
             mediaUrl: data.audioUrl,
             mediaType: 'audio',
@@ -151,14 +151,14 @@ export async function generateScenePipeline(
   const videoPromise: Promise<string> = (async () => {
     if (!scene.video.generateVideo) {
       if (!scene.video.readyVideoUrl) {
-        throw new Error(`В сцене #${scene.order + 1} выключена генерация видео, но не выбрано готовое видео`);
+        throw new Error(`Scene #${scene.order + 1} has AI video generation disabled, but no custom video was selected`);
       }
       callbacks.onLog({
         sceneIndex: scene.order,
         sceneTitle: scene.title,
         stage: 'VIDEO',
-        stageLabel: `Сцена ${scene.order + 1} • Готовое видео`,
-        message: 'Используется предварительно загруженное видео',
+        stageLabel: `Scene ${scene.order + 1} • Custom Video`,
+        message: 'Using pre-uploaded custom video',
         level: 'info',
         mediaUrl: scene.video.readyVideoUrl || undefined,
         mediaType: 'video',
@@ -173,19 +173,19 @@ export async function generateScenePipeline(
 
     if (scene.video.startImageMode === 'prev_scene_last_frame') {
       if (!getPrevSceneVideo) {
-        throw new Error(`Сцена #${scene.order + 1} не может использовать предыдущий кадр: это первая сцена`);
+        throw new Error(`Scene #${scene.order + 1} cannot use the previous frame: this is the first scene`);
       }
 
       callbacks.onSceneUpdate(scene.id, {
         status: 'waiting_dependency',
-        statusText: 'Ожидание видео предыдущей сцены...',
+        statusText: 'Waiting for previous scene video...',
       });
       callbacks.onLog({
         sceneIndex: scene.order,
         sceneTitle: scene.title,
         stage: 'EXTRACT_FRAME',
-        stageLabel: `Сцена ${scene.order + 1} • Ожидание`,
-        message: 'Ожидание завершения рендеринга предыдущей сцены для бесшовного перехода...',
+        stageLabel: `Scene ${scene.order + 1} • Waiting`,
+        message: 'Waiting for previous scene rendering to finish for seamless transition...',
         level: 'info',
       });
 
@@ -193,7 +193,7 @@ export async function generateScenePipeline(
 
       callbacks.onSceneUpdate(scene.id, {
         status: 'extracting_frame',
-        statusText: 'Извлечение последнего кадра...',
+        statusText: 'Extracting last frame...',
       });
 
       const extractRes = await fetch(getApiPath('/api/video/extract-frame'), {
@@ -204,7 +204,7 @@ export async function generateScenePipeline(
 
       const extractData = await extractRes.json();
       if (!extractRes.ok || !extractData.success) {
-        throw new Error(extractData.error || 'Не удалось извлечь последний кадр предыдущей сцены');
+        throw new Error(extractData.error || 'Failed to extract the last frame of the previous scene');
       }
 
       startImageUrl = extractData.frameUrl;
@@ -216,8 +216,8 @@ export async function generateScenePipeline(
         sceneIndex: scene.order,
         sceneTitle: scene.title,
         stage: 'EXTRACT_FRAME',
-        stageLabel: `Сцена ${scene.order + 1} • Кадр перехода извлечён`,
-        message: 'Последний кадр предыдущей сцены успешно извлечён и установлен как начальный',
+        stageLabel: `Scene ${scene.order + 1} • Transition Frame Extracted`,
+        message: 'Previous scene last frame extracted and set as the starting frame',
         level: 'success',
         mediaUrl: startImageUrl || undefined,
         mediaType: 'image',
@@ -232,20 +232,20 @@ export async function generateScenePipeline(
       if (shouldUsePrev) {
         if (!getPrevSceneVideo) {
           throw new Error(
-            `Сцена #${scene.order + 1} не может использовать кадр предыдущей сцены как шаблон: это первая сцена`
+            `Scene #${scene.order + 1} cannot use the previous scene frame as template: this is the first scene`
           );
         }
 
         callbacks.onSceneUpdate(scene.id, {
           status: 'waiting_dependency',
-          statusText: 'Ожидание видео предыдущей сцены для шаблона...',
+          statusText: 'Waiting for previous scene video for template...',
         });
         callbacks.onLog({
           sceneIndex: scene.order,
           sceneTitle: scene.title,
           stage: 'EXTRACT_FRAME',
-          stageLabel: `Сцена ${scene.order + 1} • Шаблон сцены #${scene.order}`,
-          message: 'Ожидание видео предыдущей сцены для извлечения кадра-шаблона...',
+          stageLabel: `Scene ${scene.order + 1} • Scene #${scene.order} Template`,
+          message: 'Waiting for previous scene video to extract template frame...',
           level: 'info',
         });
 
@@ -253,7 +253,7 @@ export async function generateScenePipeline(
 
         callbacks.onSceneUpdate(scene.id, {
           status: 'extracting_frame',
-          statusText: 'Извлечение кадра-шаблона...',
+          statusText: 'Extracting template frame...',
         });
 
         const extractRes = await fetch(getApiPath('/api/video/extract-frame'), {
@@ -264,7 +264,7 @@ export async function generateScenePipeline(
 
         const extractData = await extractRes.json();
         if (!extractRes.ok || !extractData.success) {
-          throw new Error(extractData.error || 'Не удалось извлечь последний кадр предыдущей сцены для шаблона');
+          throw new Error(extractData.error || 'Failed to extract previous scene last frame for template');
         }
 
         extractedPrevFrame = extractData.frameUrl;
@@ -272,8 +272,8 @@ export async function generateScenePipeline(
           sceneIndex: scene.order,
           sceneTitle: scene.title,
           stage: 'EXTRACT_FRAME',
-          stageLabel: `Сцена ${scene.order + 1} • Шаблон получен`,
-          message: 'Финальный кадр предыдущей сцены успешно извлечён и будет использован как шаблон/окружение для генерации',
+          stageLabel: `Scene ${scene.order + 1} • Template Ready`,
+          message: 'Previous scene final frame extracted and will be used as environment/background reference',
           level: 'success',
           mediaUrl: extractedPrevFrame || undefined,
           mediaType: 'image',
@@ -282,7 +282,7 @@ export async function generateScenePipeline(
 
       callbacks.onSceneUpdate(scene.id, {
         status: 'generating_image',
-        statusText: 'Генерация стартового кадра...',
+        statusText: 'Generating start frame...',
       });
 
       // Prepare custom reference images (from startImageReferences + templateImage)
@@ -293,16 +293,16 @@ export async function generateScenePipeline(
       const uniqueCustomRefs = Array.from(new Set(customRefs));
 
       const refListDesc: string[] = [];
-      if (shouldUsePrev) refListDesc.push(`кадр сцены #${scene.order}`);
-      if (uniqueCustomRefs.length > 0) refListDesc.push(`${uniqueCustomRefs.length} своих фото`);
+      if (shouldUsePrev) refListDesc.push(`scene #${scene.order} frame`);
+      if (uniqueCustomRefs.length > 0) refListDesc.push(`${uniqueCustomRefs.length} custom photo(s)`);
 
       callbacks.onLog({
         sceneIndex: scene.order,
         sceneTitle: scene.title,
         stage: 'START_IMAGE',
-        stageLabel: `Сцена ${scene.order + 1} • Стартовый кадр`,
-        message: `Создание начального кадра по инструкции: "${scene.video.imageInstruction || scene.video.videoPrompt}"${
-          refListDesc.length > 0 ? ` [Образцы: ${refListDesc.join(' + ')}]` : ''
+        stageLabel: `Scene ${scene.order + 1} • Start Frame`,
+        message: `Generating start frame from instruction: "${scene.video.imageInstruction || scene.video.videoPrompt}"${
+          refListDesc.length > 0 ? ` [References: ${refListDesc.join(' + ')}]` : ''
         }`,
         level: 'info',
       });
@@ -331,7 +331,7 @@ export async function generateScenePipeline(
 
       const data = await res.json();
       if (!res.ok || !data.success) {
-        throw new Error(data.error || 'Ошибка создания стартового изображения');
+        throw new Error(data.error || 'Failed to generate start image');
       }
 
       startImageUrl = data.url;
@@ -340,8 +340,8 @@ export async function generateScenePipeline(
         sceneIndex: scene.order,
         sceneTitle: scene.title,
         stage: 'START_IMAGE',
-        stageLabel: `Сцена ${scene.order + 1} • Стартовый кадр готов`,
-        message: 'Стартовый кадр успешно сгенерирован',
+        stageLabel: `Scene ${scene.order + 1} • Start Frame Ready`,
+        message: 'Start frame generated successfully',
         level: 'success',
         mediaUrl: startImageUrl || undefined,
         mediaType: 'image',
@@ -349,7 +349,7 @@ export async function generateScenePipeline(
     } else if (scene.video.startImageMode === 'custom_upload') {
       startImageUrl = scene.video.customStartImage || character.frontImage;
       if (!startImageUrl) {
-        throw new Error(`В сцене #${scene.order + 1} не выбрано начальное изображение`);
+        throw new Error(`No start image selected in scene #${scene.order + 1}`);
       }
     } else {
       // Use character reference directly
@@ -359,7 +359,7 @@ export async function generateScenePipeline(
           : character.frontImage || character.backImage;
 
       if (!startImageUrl) {
-        throw new Error(`В сцене #${scene.order + 1} не задано изображение персонажа для старта`);
+        throw new Error(`No character reference image set for start frame in scene #${scene.order + 1}`);
       }
     }
 
@@ -376,9 +376,9 @@ export async function generateScenePipeline(
 
       if (!lastFrameUrl) {
         throw new Error(
-          `В сцене #${scene.order + 1} выбран конечный кадр из профиля героя (${
-            charView === 'back' ? 'вид сзади' : 'вид спереди'
-          }), но изображение не загружено`
+          `Scene #${scene.order + 1} uses character profile for last frame (${
+            charView === 'back' ? 'back view' : 'front view'
+          }), but no image is uploaded`
         );
       }
 
@@ -387,10 +387,10 @@ export async function generateScenePipeline(
         sceneIndex: scene.order,
         sceneTitle: scene.title,
         stage: 'LAST_FRAME',
-        stageLabel: `Сцена ${scene.order + 1} • Конечный кадр`,
-        message: `Используется изображение героя (${
-          charView === 'back' ? 'вид сзади' : 'вид спереди'
-        }) как конечный кадр`,
+        stageLabel: `Scene ${scene.order + 1} • Last Frame`,
+        message: `Using character image (${
+          charView === 'back' ? 'back view' : 'front view'
+        }) as last frame`,
         level: 'info',
         mediaUrl: lastFrameUrl,
         mediaType: 'image',
@@ -402,7 +402,7 @@ export async function generateScenePipeline(
 
       callbacks.onSceneUpdate(scene.id, {
         status: 'generating_last_frame',
-        statusText: 'Генерация конечного кадра...',
+        statusText: 'Generating last frame...',
       });
 
       // Determine character reference photo if chosen
@@ -418,10 +418,10 @@ export async function generateScenePipeline(
         sceneIndex: scene.order,
         sceneTitle: scene.title,
         stage: 'LAST_FRAME',
-        stageLabel: `Сцена ${scene.order + 1} • Конечный кадр`,
-        message: `Создание конечного кадра по инструкции: "${promptToUse}"${
+        stageLabel: `Scene ${scene.order + 1} • Last Frame`,
+        message: `Generating last frame from instruction: "${promptToUse}"${
           characterImgToSend
-            ? ` (добавлено фото в запрос: ${charView === 'back' ? 'мальчик сзади' : 'мальчик спереди'})`
+            ? ` (included character reference: ${charView === 'back' ? 'back view' : 'front view'})`
             : ''
         }`,
         level: 'info',
@@ -443,7 +443,7 @@ export async function generateScenePipeline(
 
       const data = await res.json();
       if (!res.ok || !data.success) {
-        throw new Error(data.error || 'Ошибка генерации конечного кадра');
+        throw new Error(data.error || 'Failed to generate last frame');
       }
 
       lastFrameUrl = data.url;
@@ -452,8 +452,8 @@ export async function generateScenePipeline(
         sceneIndex: scene.order,
         sceneTitle: scene.title,
         stage: 'LAST_FRAME',
-        stageLabel: `Сцена ${scene.order + 1} • Конечный кадр готов`,
-        message: 'Конечный кадр успешно сформирован нейросетью',
+        stageLabel: `Scene ${scene.order + 1} • Last Frame Ready`,
+        message: 'Last frame generated successfully',
         level: 'success',
         mediaUrl: lastFrameUrl || undefined,
         mediaType: 'image',
@@ -467,14 +467,14 @@ export async function generateScenePipeline(
 
     callbacks.onSceneUpdate(scene.id, {
       status: 'generating_video',
-      statusText: `Генерация видео (${chosenModel})...`,
+      statusText: `Generating video (${chosenModel})...`,
     });
     callbacks.onLog({
       sceneIndex: scene.order,
       sceneTitle: scene.title,
       stage: 'VIDEO',
-      stageLabel: `Сцена ${scene.order + 1} • Запуск видео`,
-      message: `Отправка в ${chosenModel} (${scene.video.duration} сек., 480p${lastFrameUrl ? ', с закреплением конечного кадра' : ''})`,
+      stageLabel: `Scene ${scene.order + 1} • Starting Video`,
+      message: `Submitting to ${chosenModel} (${scene.video.duration}s, 480p${lastFrameUrl ? ', with locked end frame' : ''})`,
       level: 'info',
     });
 
@@ -496,7 +496,7 @@ export async function generateScenePipeline(
 
     const videoReqData = await videoReqRes.json();
     if (!videoReqRes.ok || !videoReqData.success) {
-      throw new Error(videoReqData.error || 'Не удалось отправить задачу генерации видео');
+      throw new Error(videoReqData.error || 'Failed to submit video generation task');
     }
 
     const requestId = videoReqData.requestId;
@@ -504,15 +504,15 @@ export async function generateScenePipeline(
       sceneIndex: scene.order,
       sceneTitle: scene.title,
       stage: 'VIDEO',
-      stageLabel: `Сцена ${scene.order + 1} • Обработка xAI`,
-      message: `Задача принята нейросетью [ID: ${requestId}]. Ожидание завершения...`,
+      stageLabel: `Scene ${scene.order + 1} • xAI Processing`,
+      message: `Task accepted [ID: ${requestId}]. Waiting for completion...`,
       level: 'info',
     });
 
     // Poll until video is done
     const finalVideoUrl = await pollVideoTask(apiKey, requestId, (status) => {
       callbacks.onSceneUpdate(scene.id, {
-        statusText: `Рендеринг видео (${status})...`,
+        statusText: `Rendering video (${status})...`,
       });
     });
 
@@ -521,8 +521,8 @@ export async function generateScenePipeline(
       sceneIndex: scene.order,
       sceneTitle: scene.title,
       stage: 'VIDEO',
-      stageLabel: `Сцена ${scene.order + 1} • Видео готово`,
-      message: `Видеоклип успешно сгенерирован моделью ${chosenModel}`,
+      stageLabel: `Scene ${scene.order + 1} • Video Ready`,
+      message: `Video clip generated by ${chosenModel}`,
       level: 'success',
       mediaUrl: finalVideoUrl,
       mediaType: 'video',
@@ -553,14 +553,14 @@ export async function generateScenePipeline(
 
   callbacks.onSceneUpdate(scene.id, {
     status: 'completed',
-    statusText: 'Сцена готова к сборке',
+    statusText: 'Scene ready to merge',
   });
   callbacks.onLog({
     sceneIndex: scene.order,
     sceneTitle: scene.title,
     stage: 'SCENE_MUX',
-    stageLabel: `Сцена ${scene.order + 1} • Готова`,
-    message: `Все ассеты сформированы: видео + ${audioTracks.length} аудио-реплик(и)`,
+    stageLabel: `Scene ${scene.order + 1} • Ready`,
+    message: `All assets generated: video + ${audioTracks.length} audio track(s)`,
     level: 'success',
   });
 
@@ -578,19 +578,19 @@ export async function runCartoonBuildPipeline(
   backgroundMusic?: BackgroundMusicConfig
 ): Promise<Blob> {
   if (!apiKey) {
-    throw new Error('xAI API Key не настроен. Укажите ключ в настройках проекта.');
+    throw new Error('xAI API Key is not configured. Please set your key in project settings.');
   }
 
   const activeScenes = scenes.filter((s) => s.enabled !== false);
 
   if (activeScenes.length === 0) {
-    throw new Error('Нет активных (включённых) сцен для генерации мультфильма.');
+    throw new Error('No enabled scenes available for cartoon generation.');
   }
 
   callbacks.onLog({
     stage: 'START',
-    stageLabel: 'Старт генерации',
-    message: `Запуск конвейера для ${activeScenes.length} включённых сцен(ы)... Запросы отправляются в нейросеть параллельно!`,
+    stageLabel: 'Generation Started',
+    message: `Starting pipeline for ${activeScenes.length} enabled scene(s)... Requests are sent in parallel!`,
     level: 'info',
   });
 
@@ -622,15 +622,15 @@ export async function runCartoonBuildPipeline(
       const errMsg = err instanceof Error ? err.message : String(err);
       callbacks.onSceneUpdate(scene.id, {
         status: 'error',
-        statusText: 'Ошибка генерации',
+        statusText: 'Generation error',
         error: errMsg,
       });
       callbacks.onLog({
         sceneIndex: scene.order,
         sceneTitle: scene.title,
         stage: 'ERROR',
-        stageLabel: `Сцена ${scene.order + 1} • Ошибка`,
-        message: `Ошибка в сцене: ${errMsg}`,
+        stageLabel: `Scene ${scene.order + 1} • Error`,
+        message: `Scene error: ${errMsg}`,
         level: 'error',
       });
       throw err;
@@ -642,8 +642,8 @@ export async function runCartoonBuildPipeline(
   // All active scenes ready -> Final FFmpeg Concatenation & Multi-track Audio Muxing
   callbacks.onLog({
     stage: 'FINAL_CONCAT',
-    stageLabel: 'Финальная сборка',
-    message: 'Все включённые сцены готовы! Запуск FFmpeg для объединения клипов и синхронизации всех реплик...',
+    stageLabel: 'Final Assembly',
+    message: 'All enabled scenes are ready! Running FFmpeg to merge clips and sync all dialogue tracks...',
     level: 'info',
   });
 
@@ -665,8 +665,8 @@ export async function runCartoonBuildPipeline(
     };
     callbacks.onLog({
       stage: 'FINAL_CONCAT',
-      stageLabel: 'Фоновая музыка',
-      message: `Сведение фонового саундтрека (${Math.round((backgroundMusic.volume ?? 0.25) * 100)}% громкости)...`,
+      stageLabel: 'Background Music',
+      message: `Mixing background soundtrack (${Math.round((backgroundMusic.volume ?? 0.25) * 100)}% volume)...`,
       level: 'info',
     });
   }
@@ -680,8 +680,8 @@ export async function runCartoonBuildPipeline(
   });
 
   if (!mergeRes.ok) {
-    const errData = await mergeRes.json().catch(() => ({ error: 'Сбой склеивания видео на сервере' }));
-    throw new Error(errData.error || `Ошибка сборки мультфильма: HTTP ${mergeRes.status}`);
+    const errData = await mergeRes.json().catch(() => ({ error: 'Server error while merging video' }));
+    throw new Error(errData.error || `Cartoon merge error: HTTP ${mergeRes.status}`);
   }
 
   const finalVideoBlob = await mergeRes.blob();
@@ -689,8 +689,8 @@ export async function runCartoonBuildPipeline(
 
   callbacks.onLog({
     stage: 'FINAL_CONCAT',
-    stageLabel: 'Мультфильм готов!',
-    message: `Склейка завершена! Итоговый размер: ${(finalVideoBlob.size / (1024 * 1024)).toFixed(2)} МБ`,
+    stageLabel: 'Cartoon Ready!',
+    message: `Merge complete! Final file size: ${(finalVideoBlob.size / (1024 * 1024)).toFixed(2)} MB`,
     level: 'success',
     mediaUrl: finalVideoUrl,
     mediaType: 'video',

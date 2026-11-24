@@ -117,7 +117,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
     if (!file) return;
 
     if (!file.type.startsWith('video/')) {
-      alert('Пожалуйста, выберите видеофайл (MP4/WebM)');
+      alert('Please select a video file (MP4/WebM)');
       return;
     }
 
@@ -136,7 +136,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
     if (!file) return;
 
     if (!file.type.startsWith('image/')) {
-      alert('Пожалуйста, выберите файл изображения');
+      alert('Please select an image file');
       return;
     }
 
@@ -469,7 +469,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                 <div>
                   <div className="flex justify-between items-center text-xs mb-1">
                     <span className="text-slate-600 dark:text-gray-400">{t('videoDurationLabel')}:</span>
-                    <span className="font-bold text-slate-900 dark:text-white">{scene.video.duration} сек.</span>
+                    <span className="font-bold text-slate-900 dark:text-white">{scene.video.duration}s</span>
                   </div>
                   <input
                     type="range"
@@ -553,7 +553,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                   ) : (
                     <div className="px-2.5 py-2 rounded-md text-xs border border-dashed border-slate-300 dark:border-[#1f293d] text-slate-400 dark:text-gray-600 opacity-60">
                       <span>{t('startImageModePrevFrameDisabled')}</span>
-                      <p className="text-[10px] text-slate-400 dark:text-gray-600 mt-0.5">(Для сцен №2+)</p>
+                      <p className="text-[10px] text-slate-400 dark:text-gray-600 mt-0.5">(For scenes #2+)</p>
                     </div>
                   )}
                 </div>
@@ -575,7 +575,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                           : 'bg-white dark:bg-[#0b0f19] border-slate-200 dark:border-[#1f293d] text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'
                       }`}
                     >
-                      {t('charViewFront')} {hasCharacterFront ? '✓' : '(не загружен)'}
+                      {t('charViewFront')} {hasCharacterFront ? '✓' : '(not uploaded)'}
                     </button>
                     <button
                       type="button"
@@ -586,7 +586,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                           : 'bg-white dark:bg-[#0b0f19] border-slate-200 dark:border-[#1f293d] text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'
                       }`}
                     >
-                      {t('charViewBack')} {hasCharacterBack ? '✓' : '(не загружен)'}
+                      {t('charViewBack')} {hasCharacterBack ? '✓' : '(not uploaded)'}
                     </button>
                   </div>
                 </div>
@@ -643,7 +643,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                         }`}
                       >
                         <span>{t('charViewFront')}</span>
-                        <span className="text-[10px] opacity-80">{hasCharacterFront ? '✓' : '(не загружен)'}</span>
+                        <span className="text-[10px] opacity-80">{hasCharacterFront ? '✓' : '(not uploaded)'}</span>
                       </button>
                       <button
                         type="button"
@@ -655,7 +655,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                         }`}
                       >
                         <span>{t('charViewBack')}</span>
-                        <span className="text-[10px] opacity-80">{hasCharacterBack ? '✓' : '(не загружен)'}</span>
+                        <span className="text-[10px] opacity-80">{hasCharacterBack ? '✓' : '(not uploaded)'}</span>
                       </button>
                       <button
                         type="button"
@@ -665,7 +665,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                             ? 'bg-slate-700 dark:bg-gray-700 border-slate-600 dark:border-gray-500 text-white shadow-sm'
                             : 'bg-white dark:bg-[#0b0f19] border-slate-200 dark:border-[#1f293d] text-slate-400 dark:text-gray-500 hover:text-slate-700 dark:hover:text-gray-300'
                         }`}
-                        title="Не передавать фото персонажа в генерацию этого кадра"
+                        title="Do not pass character photo when generating this frame"
                       >
                         {t('charViewNone')}
                       </button>
@@ -732,7 +732,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                         {t('customRefsTitle')}:
                       </label>
                       <span className="text-[10px] text-slate-400 dark:text-gray-500">
-                        {(scene.video.startImageReferences || []).length}/5 фото
+                        {(scene.video.startImageReferences || []).length}/5 photos
                       </span>
                     </div>
 
@@ -770,7 +770,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                           title={t('addPhotoRefButton')}
                         >
                           <Plus className="w-4 h-4" />
-                          <span className="text-[8px] font-medium">+ Фото</span>
+                          <span className="text-[8px] font-medium">+ Photo</span>
                         </div>
                       )}
 
@@ -843,7 +843,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                           }`}
                         >
                           <span>{t('lastFrameBoyFront')}</span>
-                          <span className="text-[10px] opacity-80">{hasCharacterFront ? '✓' : '(не загружен)'}</span>
+                          <span className="text-[10px] opacity-80">{hasCharacterFront ? '✓' : '(not uploaded)'}</span>
                         </button>
                         <button
                           type="button"
@@ -855,7 +855,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                           }`}
                         >
                           <span>{t('lastFrameBoyBack')}</span>
-                          <span className="text-[10px] opacity-80">{hasCharacterBack ? '✓' : '(не загружен)'}</span>
+                          <span className="text-[10px] opacity-80">{hasCharacterBack ? '✓' : '(not uploaded)'}</span>
                         </button>
                       </div>
                     </div>
@@ -888,7 +888,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                             }`}
                           >
                             <span>{t('lastFrameBoyFront')}</span>
-                            <span className="text-[10px] opacity-80">{hasCharacterFront ? '✓' : '(не загружен)'}</span>
+                            <span className="text-[10px] opacity-80">{hasCharacterFront ? '✓' : '(not uploaded)'}</span>
                           </button>
                           <button
                             type="button"
@@ -900,7 +900,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                             }`}
                           >
                             <span>{t('lastFrameBoyBack')}</span>
-                            <span className="text-[10px] opacity-80">{hasCharacterBack ? '✓' : '(не загружен)'}</span>
+                            <span className="text-[10px] opacity-80">{hasCharacterBack ? '✓' : '(not uploaded)'}</span>
                           </button>
                           <button
                             type="button"
@@ -910,7 +910,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                                 ? 'bg-slate-700 dark:bg-gray-700 border-slate-600 dark:border-gray-500 text-white shadow-sm'
                                 : 'bg-white dark:bg-[#0b0f19] border-slate-200 dark:border-[#1f293d] text-slate-400 dark:text-gray-500 hover:text-slate-700 dark:hover:text-gray-300'
                             }`}
-                            title="Не добавлять фото мальчика в запрос нейросети"
+                            title="Do not include character photo in the AI request"
                           >
                             {t('lastFrameBoyNone')}
                           </button>
@@ -940,7 +940,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                             {t('lastFrameRefsTitle')}:
                           </label>
                           <span className="text-[10px] text-slate-400 dark:text-gray-500">
-                            {(scene.video.lastFrameReferences || []).length}/5 фото
+                            {(scene.video.lastFrameReferences || []).length}/5 photos
                           </span>
                         </div>
 
@@ -978,7 +978,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                               title={t('lastFrameRefsTitle')}
                             >
                               <Plus className="w-4 h-4" />
-                              <span className="text-[8px] font-medium">+ Фото</span>
+                              <span className="text-[8px] font-medium">+ Photo</span>
                             </div>
                           )}
                         </div>
@@ -1100,7 +1100,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                         <div className="flex justify-between items-center text-[10px]">
                           <span className="text-slate-500 dark:text-gray-400">{t('durationLabel')}</span>
                           <span className="font-bold text-blue-600 dark:text-blue-300">
-                            {scene.video.transition.fadeInDuration ?? 1.0} сек.
+                            {scene.video.transition.fadeInDuration ?? 1.0}s
                           </span>
                         </div>
                         <input
@@ -1162,7 +1162,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                         <div className="flex justify-between items-center text-[10px]">
                           <span className="text-slate-500 dark:text-gray-400">{t('durationLabel')}</span>
                           <span className="font-bold text-purple-600 dark:text-purple-300">
-                            {scene.video.transition.fadeOutDuration ?? 1.0} сек.
+                            {scene.video.transition.fadeOutDuration ?? 1.0}s
                           </span>
                         </div>
                         <input
@@ -1377,7 +1377,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
         scene.rawVideoUrl ||
         (scene.audio.tracks && scene.audio.tracks.some((t) => t.ttsAudioUrl))) && (
         <div className="mt-5 pt-4 border-t border-slate-200 dark:border-[#1f293d] flex flex-wrap items-center gap-3 text-xs">
-          <span className="text-slate-500 dark:text-gray-400 font-medium">Готовые ассеты сцены:</span>
+          <span className="text-slate-500 dark:text-gray-400 font-medium">Generated scene assets:</span>
 
           {scene.generatedStartImageUrl && (
             <a
@@ -1386,7 +1386,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
               rel="noreferrer"
               className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-300 border border-purple-500/20 hover:bg-purple-500/20"
             >
-              <span>🖼️ Стартовый кадр</span>
+              <span>🖼️ Start frame</span>
             </a>
           )}
 
@@ -1397,7 +1397,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
               rel="noreferrer"
               className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-300 border border-emerald-500/20 hover:bg-emerald-500/20"
             >
-              <span>🏁 Финальный кадр</span>
+              <span>🏁 Last frame</span>
             </a>
           )}
 
@@ -1408,7 +1408,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
               rel="noreferrer"
               className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-300 border border-blue-500/20 hover:bg-blue-500/20"
             >
-              <span>🎬 Видеоролик</span>
+              <span>🎬 Video clip</span>
             </a>
           )}
         </div>

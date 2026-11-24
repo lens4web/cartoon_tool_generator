@@ -8,14 +8,14 @@ export async function GET(req: NextRequest) {
                    req.headers.get('x-api-key');
 
     if (!apiKey) {
-      return NextResponse.json({ error: 'xAI API Key не передан' }, { status: 401 });
+      return NextResponse.json({ error: 'xAI API Key is missing' }, { status: 401 });
     }
 
     const { searchParams } = new URL(req.url);
     const requestId = searchParams.get('requestId');
 
     if (!requestId) {
-      return NextResponse.json({ error: 'Параметр requestId обязателен' }, { status: 400 });
+      return NextResponse.json({ error: 'Parameter requestId is required' }, { status: 400 });
     }
 
     const response = await fetch(`https://api.x.ai/v1/videos/${encodeURIComponent(requestId)}`, {
@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
 
     if (!response.ok) {
       const errText = await response.text();
-      let errMsg = `Ошибка опроса статуса (${response.status})`;
+      let errMsg = `Status polling error (${response.status})`;
       try {
         const parsed = JSON.parse(errText);
         errMsg = parsed.error?.message || parsed.message || parsed.detail || errText;
@@ -47,7 +47,7 @@ export async function GET(req: NextRequest) {
       error: data.error || null,
     });
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : 'Внутренняя ошибка опроса статуса видео';
+    const msg = error instanceof Error ? error.message : 'Internal video status polling error';
     return NextResponse.json({ error: msg }, { status: 500 });
   }
 }

@@ -22,7 +22,7 @@ export const BackgroundMusicSection: React.FC<BackgroundMusicSectionProps> = ({
     if (!file) return;
 
     if (!file.type.startsWith('audio/')) {
-      alert('Пожалуйста, выберите аудиофайл (MP3, WAV, M4A, AAC, OGG)');
+      alert('Please select an audio file (MP3, WAV, M4A, AAC, OGG)');
       return;
     }
 

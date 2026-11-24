@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
     const videoUrl = searchParams.get('url');
 
     if (!videoUrl) {
-      return NextResponse.json({ error: 'Параметр url обязателен' }, { status: 400 });
+      return NextResponse.json({ error: 'Parameter url is required' }, { status: 400 });
     }
 
     const { buffer, contentType } = await safeFetchMedia(videoUrl, {
@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
       },
     });
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : 'Ошибка проксирования видео';
+    const msg = error instanceof Error ? error.message : 'Video proxy error';
     return NextResponse.json({ error: msg }, { status: 400 });
   }
 }

@@ -22,7 +22,7 @@ import { useThemeLanguage } from '@/context/ThemeLanguageContext';
 const INITIAL_CHARACTER: MainCharacter = {
   frontImage: null,
   backImage: null,
-  name: 'Главный герой',
+  name: 'Main Hero',
 };
 
 const INITIAL_BACKGROUND_MUSIC: BackgroundMusicConfig = {
@@ -37,7 +37,7 @@ const INITIAL_SCENES: SceneState[] = [
   {
     id: 'scene-1',
     order: 0,
-    title: 'Сцена 1: Знакомство на поляне',
+    title: 'Scene 1: Forest Clearing',
     video: {
       model: 'grok-imagine-video-1.5-lite',
       generateVideo: true,
@@ -63,7 +63,7 @@ const INITIAL_SCENES: SceneState[] = [
       tracks: [
         {
           id: 'track-1-1',
-          phrase: 'Привет! Добро пожаловать в наше сказочное приключение!',
+          phrase: 'Hello! Welcome to our magical adventure!',
           voiceId: 'eve',
           speed: 1.0,
           normalizeText: true,
@@ -71,7 +71,7 @@ const INITIAL_SCENES: SceneState[] = [
         },
         {
           id: 'track-1-2',
-          phrase: 'Сегодня мы отправимся на поиски древней тайны!',
+          phrase: 'Today we set off in search of an ancient secret!',
           voiceId: 'leo',
           speed: 1.0,
           normalizeText: true,
@@ -84,7 +84,7 @@ const INITIAL_SCENES: SceneState[] = [
   {
     id: 'scene-2',
     order: 1,
-    title: 'Сцена 2: Волшебная находка',
+    title: 'Scene 2: Magical Discovery',
     video: {
       model: 'grok-imagine-video-1.5',
       generateVideo: true,
@@ -109,7 +109,7 @@ const INITIAL_SCENES: SceneState[] = [
       tracks: [
         {
           id: 'track-2-1',
-          phrase: 'Ого, посмотри, это же настоящий древний кристалл!',
+          phrase: 'Whoa, look at that, it is a real ancient crystal!',
           voiceId: 'eve',
           speed: 1.0,
           normalizeText: true,
@@ -223,7 +223,7 @@ export default function CartoonStudioPage() {
     const newScene: SceneState = {
       id: `scene-${Date.now()}`,
       order: scenes.length,
-      title: `Сцена ${scenes.length + 1}`,
+      title: `Scene ${scenes.length + 1}`,
       video: {
         model: scenes.length > 0 ? 'grok-imagine-video-1.5' : 'grok-imagine-video-1.5-lite',
         generateVideo: true,
@@ -279,7 +279,7 @@ export default function CartoonStudioPage() {
     const newScene: SceneState = {
       ...sceneToDup,
       id: `scene-${Date.now()}`,
-      title: `${sceneToDup.title} (Копия)`,
+      title: `${sceneToDup.title} (Copy)`,
       status: 'idle',
       statusText: undefined,
       error: null,
@@ -408,7 +408,7 @@ export default function CartoonStudioPage() {
 
         if (parsed.character) {
           setCharacter({
-            name: parsed.character.name || 'Главный герой',
+            name: parsed.character.name || 'Main Hero',
             frontImage: parsed.character.frontImage || null,
             backImage: parsed.character.backImage || null,
           });
@@ -462,7 +462,7 @@ export default function CartoonStudioPage() {
             return {
               id: s.id || `scene-${Date.now()}-${idx}`,
               order: idx,
-              title: s.title || `Сцена ${idx + 1}`,
+              title: s.title || `Scene ${idx + 1}`,
               enabled: s.enabled !== false,
               video: {
                 model: rawVideo.model || 'grok-imagine-video-1.5-lite',
@@ -568,7 +568,7 @@ export default function CartoonStudioPage() {
           ? {
               ...s,
               status: 'queued',
-              statusText: 'В очереди...',
+              statusText: 'Queued...',
               error: null,
             }
           : s
@@ -596,11 +596,11 @@ export default function CartoonStudioPage() {
       const msg = error instanceof Error ? error.message : String(error);
       addLog({
         stage: 'ERROR',
-        stageLabel: 'Ошибка пайплайна',
+        stageLabel: 'Pipeline Error',
         message: msg,
         level: 'error',
       });
-      alert(`Ошибка генерации: ${msg}`);
+      alert(`Generation error: ${msg}`);
     } finally {
       setIsGenerating(false);
     }
@@ -652,13 +652,13 @@ export default function CartoonStudioPage() {
                   {t('scenesOfTotal', { total: scenes.length })})
                 </h2>
                 <span className="text-xs bg-slate-200 text-blue-700 dark:bg-[#1f293d] dark:text-blue-300 border border-blue-500/20 px-2.5 py-0.5 rounded-full font-medium">
-                  {t('timingLabel')}: {estimatedCost.totalDurationSeconds} сек
+                  {t('timingLabel')}: {estimatedCost.totalDurationSeconds}s
                 </span>
                 <span
                   className="text-xs bg-amber-500/10 text-amber-600 dark:text-amber-300 border border-amber-500/20 px-2.5 py-0.5 rounded-full font-medium cursor-help"
-                  title={`Видео: $${estimatedCost.videoCost} | Кадры: $${estimatedCost.imageCost} (входные референсы: $${estimatedCost.inputImagesCost}) | Озвучка: $${estimatedCost.ttsCost}`}
+                  title={`Video: $${estimatedCost.videoCost} | Frames: $${estimatedCost.imageCost} (input references: $${estimatedCost.inputImagesCost}) | Voiceover: $${estimatedCost.ttsCost}`}
                 >
-                  ~${estimatedCost.totalUsd} (~{estimatedCost.totalRub} ₽)
+                  ~${estimatedCost.totalUsd}
                 </span>
               </div>
               <p className="text-xs text-slate-500 dark:text-gray-400">

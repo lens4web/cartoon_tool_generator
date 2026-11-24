@@ -15,18 +15,18 @@ export async function POST(req: NextRequest) {
     const { videoUrl } = body;
 
     if (!videoUrl || typeof videoUrl !== 'string') {
-      return NextResponse.json({ error: 'Параметр videoUrl обязателен' }, { status: 400 });
+      return NextResponse.json({ error: 'Parameter videoUrl is required' }, { status: 400 });
     }
 
     const videoPath = path.join(tempDir, 'source.mp4');
 
     if (videoUrl.startsWith('data:')) {
       const commaIdx = videoUrl.indexOf(',');
-      if (commaIdx === -1) throw new Error('Некорректный data URI');
+      if (commaIdx === -1) throw new Error('Invalid data URI');
       const base64 = videoUrl.substring(commaIdx + 1);
       const buffer = Buffer.from(base64, 'base64');
       if (buffer.length > 150 * 1024 * 1024) {
-        throw new Error('Размер видео превышает допустимый лимит (150 MB)');
+        throw new Error('Video size exceeds the allowed limit (150 MB)');
       }
       await fs.writeFile(videoPath, buffer);
     } else {
@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
       frameUrl: dataUri,
     });
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : 'Ошибка извлечения последнего кадра';
+    const msg = error instanceof Error ? error.message : 'Failed to extract last frame';
     return NextResponse.json({ error: msg }, { status: 500 });
   } finally {
     await fs.rm(tempDir, { recursive: true, force: true }).catch(() => {});
