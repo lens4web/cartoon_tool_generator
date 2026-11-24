@@ -215,7 +215,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
 
   return (
     <div
-      className={`rounded-2xl p-6 shadow-sm dark:shadow-xl relative transition-all duration-200 ${
+      className={`rounded-lg p-6 shadow-sm dark:shadow-xl relative transition-all duration-200 ${
         scene.enabled === false
           ? 'bg-slate-100/80 dark:bg-[#0f1420]/80 border border-dashed border-slate-300 dark:border-gray-700/80 opacity-80'
           : 'bg-white dark:bg-[#111827] border border-slate-200 dark:border-[#1f293d] hover:border-slate-300 dark:hover:border-[#2b3a55]'
@@ -225,7 +225,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
       <div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-200 dark:border-[#1f293d]">
         <div className="flex items-center gap-3">
           <span
-            className={`w-8 h-8 rounded-xl border font-bold text-xs flex items-center justify-center transition-colors ${
+            className={`w-8 h-8 rounded-md border font-bold text-xs flex items-center justify-center transition-colors ${
               scene.enabled === false
                 ? 'bg-slate-200 text-slate-400 border-slate-300 dark:bg-gray-800 dark:text-gray-500 dark:border-gray-700'
                 : 'bg-blue-500/10 border-blue-500/20 text-blue-600 dark:text-blue-400'
@@ -249,7 +249,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
         </div>
 
         {/* Enable / Disable Scene Toggle Switch */}
-        <label className="flex items-center gap-2 cursor-pointer select-none px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] hover:border-slate-300 dark:hover:border-gray-600 transition-colors">
+        <label className="flex items-center gap-2 cursor-pointer select-none px-3 py-1.5 rounded-md bg-slate-50 dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] hover:border-slate-300 dark:hover:border-gray-600 transition-colors">
           <input
             type="checkbox"
             checked={scene.enabled !== false}
@@ -295,7 +295,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
           <button
             onClick={onMoveUp}
             disabled={index === 0}
-            className="p-1.5 rounded-lg text-slate-400 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-gray-800 disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+            className="p-1.5 rounded-md text-slate-400 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-gray-800 disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
             title={t('moveUp')}
           >
             <ChevronUp className="w-4 h-4" />
@@ -303,14 +303,14 @@ export const SceneCard: React.FC<SceneCardProps> = ({
           <button
             onClick={onMoveDown}
             disabled={index === totalScenes - 1}
-            className="p-1.5 rounded-lg text-slate-400 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-gray-800 disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+            className="p-1.5 rounded-md text-slate-400 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-gray-800 disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
             title={t('moveDown')}
           >
             <ChevronDown className="w-4 h-4" />
           </button>
           <button
             onClick={onDuplicate}
-            className="p-1.5 rounded-lg text-slate-400 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-gray-800 transition-colors ml-1"
+            className="p-1.5 rounded-md text-slate-400 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-gray-800 transition-colors ml-1"
             title={t('duplicateScene')}
           >
             <Copy className="w-4 h-4" />
@@ -318,7 +318,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
           <button
             onClick={onDelete}
             disabled={totalScenes <= 1}
-            className="p-1.5 rounded-lg text-slate-400 dark:text-gray-400 hover:text-rose-500 dark:hover:text-rose-400 hover:bg-slate-100 dark:hover:bg-gray-800 transition-colors disabled:opacity-30 disabled:hover:bg-transparent"
+            className="p-1.5 rounded-md text-slate-400 dark:text-gray-400 hover:text-rose-500 dark:hover:text-rose-400 hover:bg-slate-100 dark:hover:bg-gray-800 transition-colors disabled:opacity-30 disabled:hover:bg-transparent"
             title={t('deleteScene')}
           >
             <Trash2 className="w-4 h-4" />
@@ -328,7 +328,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
 
       {/* Inactive scene alert */}
       {scene.enabled === false && (
-        <div className="mb-5 p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-700 dark:text-amber-300 flex items-center justify-between animate-in fade-in">
+        <div className="mb-5 p-3 rounded-md bg-amber-500/10 border border-amber-500/20 text-xs text-amber-700 dark:text-amber-300 flex items-center justify-between animate-in fade-in">
           <div className="flex items-center gap-2">
             <AlertCircle className="w-4 h-4 text-amber-500 dark:text-amber-400 shrink-0" />
             <span>{t('sceneDisabledAlert')}</span>
@@ -336,7 +336,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
           <button
             type="button"
             onClick={() => onUpdate({ enabled: true })}
-            className="px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-800 dark:text-amber-200 font-medium text-xs border border-amber-500/30 transition-colors shrink-0 ml-3"
+            className="px-2.5 py-1 rounded-md bg-amber-500/20 hover:bg-amber-500/30 text-amber-800 dark:text-amber-200 font-medium text-xs border border-amber-500/30 transition-colors shrink-0 ml-3"
           >
             {t('enableSceneButton')}
           </button>
@@ -346,7 +346,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
       {/* Main Grid: Video Configuration (Left) & Grok-TTS Configuration (Right) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* ==================== LEFT COLUMN: VIDEO GENERATION ==================== */}
-        <div className="space-y-5 bg-slate-50/70 dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] rounded-xl p-5 transition-colors">
+        <div className="space-y-5 bg-slate-50/70 dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] rounded-md p-5 transition-colors">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Film className="w-4 h-4 text-blue-500 dark:text-blue-400" />
@@ -377,7 +377,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                 {t('selectCustomVideo')}
               </p>
               {scene.video.readyVideoUrl ? (
-                <div className="rounded-xl overflow-hidden border border-slate-200 dark:border-[#1f293d] bg-black/50 aspect-video relative group">
+                <div className="rounded-md overflow-hidden border border-slate-200 dark:border-[#1f293d] bg-black/50 aspect-video relative group">
                   <video
                     src={scene.video.readyVideoUrl}
                     controls
@@ -386,7 +386,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                   <div className="absolute top-2 right-2">
                     <button
                       onClick={() => updateVideo({ readyVideoUrl: null })}
-                      className="p-1.5 rounded-lg bg-black/60 text-slate-300 dark:text-gray-400 hover:text-rose-400 backdrop-blur-sm"
+                      className="p-1.5 rounded-md bg-black/60 text-slate-300 dark:text-gray-400 hover:text-rose-400 backdrop-blur-sm"
                       title={t('deletePhoto')}
                     >
                       <Trash2 className="w-4 h-4" />
@@ -396,7 +396,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
               ) : (
                 <div
                   onClick={() => readyVideoInputRef.current?.click()}
-                  className="border-2 border-dashed border-slate-300 dark:border-[#1f293d] hover:border-blue-500/50 rounded-xl p-6 text-center cursor-pointer transition-colors"
+                  className="border-2 border-dashed border-slate-300 dark:border-[#1f293d] hover:border-blue-500/50 rounded-md p-6 text-center cursor-pointer transition-colors"
                 >
                   <Video className="w-8 h-8 text-blue-500 dark:text-blue-400 mx-auto mb-2" />
                   <p className="text-xs font-medium text-slate-700 dark:text-gray-200">{t('selectCustomVideo')}</p>
@@ -423,7 +423,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                   <button
                     type="button"
                     onClick={() => updateVideo({ model: 'grok-imagine-video-1.5-lite' })}
-                    className={`px-3 py-2 rounded-xl text-xs font-medium border text-left transition-all ${
+                    className={`px-3 py-2 rounded-md text-xs font-medium border text-left transition-all ${
                       !isModel15
                         ? 'bg-blue-600/15 border-blue-500 text-blue-700 dark:text-blue-300 shadow-sm'
                         : 'bg-white dark:bg-[#141d2e] border-slate-200 dark:border-[#1f293d] text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'
@@ -439,7 +439,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                   <button
                     type="button"
                     onClick={() => updateVideo({ model: 'grok-imagine-video-1.5' })}
-                    className={`px-3 py-2 rounded-xl text-xs font-medium border text-left transition-all ${
+                    className={`px-3 py-2 rounded-md text-xs font-medium border text-left transition-all ${
                       isModel15
                         ? 'bg-purple-600/15 border-purple-500 text-purple-700 dark:text-purple-300 shadow-sm'
                         : 'bg-white dark:bg-[#141d2e] border-slate-200 dark:border-[#1f293d] text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'
@@ -510,7 +510,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                   <button
                     type="button"
                     onClick={() => updateVideo({ startImageMode: 'character_ref' })}
-                    className={`px-2.5 py-2 rounded-xl text-xs font-medium border text-left transition-all ${
+                    className={`px-2.5 py-2 rounded-md text-xs font-medium border text-left transition-all ${
                       scene.video.startImageMode === 'character_ref'
                         ? 'bg-blue-600/15 border-blue-500 text-blue-700 dark:text-blue-300 shadow-sm'
                         : 'bg-white dark:bg-[#141d2e] border-slate-200 dark:border-[#1f293d] text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'
@@ -523,7 +523,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                   <button
                     type="button"
                     onClick={() => updateVideo({ startImageMode: 'custom_generate' })}
-                    className={`px-2.5 py-2 rounded-xl text-xs font-medium border text-left transition-all ${
+                    className={`px-2.5 py-2 rounded-md text-xs font-medium border text-left transition-all ${
                       isCustomStartImage
                         ? 'bg-purple-600/15 border-purple-500 text-purple-700 dark:text-purple-300 shadow-sm'
                         : 'bg-white dark:bg-[#141d2e] border-slate-200 dark:border-[#1f293d] text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'
@@ -538,7 +538,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                     <button
                       type="button"
                       onClick={() => updateVideo({ startImageMode: 'prev_scene_last_frame' })}
-                      className={`px-2.5 py-2 rounded-xl text-xs font-medium border text-left transition-all ${
+                      className={`px-2.5 py-2 rounded-md text-xs font-medium border text-left transition-all ${
                         isPrevSceneLastFrame
                           ? 'bg-emerald-600/15 border-emerald-500 text-emerald-700 dark:text-emerald-300 shadow-sm'
                           : 'bg-white dark:bg-[#141d2e] border-slate-200 dark:border-[#1f293d] text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'
@@ -551,7 +551,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                       <p className="text-[10px] text-slate-400 dark:text-gray-500 mt-0.5">{t('startImageModePrevFrameSub')}</p>
                     </button>
                   ) : (
-                    <div className="px-2.5 py-2 rounded-xl text-xs border border-dashed border-slate-300 dark:border-[#1f293d] text-slate-400 dark:text-gray-600 opacity-60">
+                    <div className="px-2.5 py-2 rounded-md text-xs border border-dashed border-slate-300 dark:border-[#1f293d] text-slate-400 dark:text-gray-600 opacity-60">
                       <span>{t('startImageModePrevFrameDisabled')}</span>
                       <p className="text-[10px] text-slate-400 dark:text-gray-600 mt-0.5">(Для сцен №2+)</p>
                     </div>
@@ -561,7 +561,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
 
               {/* DIRECT CHARACTER REFERENCE VIEW PICKER */}
               {scene.video.startImageMode === 'character_ref' && (
-                <div className="p-3.5 rounded-xl bg-slate-100/90 dark:bg-[#141d2e]/60 border border-blue-500/20 space-y-2.5 animate-in fade-in duration-150">
+                <div className="p-3.5 rounded-md bg-slate-100/90 dark:bg-[#141d2e]/60 border border-blue-500/20 space-y-2.5 animate-in fade-in duration-150">
                   <label className="block text-[11px] font-medium text-slate-700 dark:text-gray-300">
                     {t('charViewTitle')}:
                   </label>
@@ -569,7 +569,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                     <button
                       type="button"
                       onClick={() => updateVideo({ characterView: 'front' })}
-                      className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-medium border transition-colors ${
+                      className={`flex-1 py-1.5 px-3 rounded-md text-xs font-medium border transition-colors ${
                         scene.video.characterView === 'front'
                           ? 'bg-blue-600 border-blue-500 text-white shadow-sm'
                           : 'bg-white dark:bg-[#0b0f19] border-slate-200 dark:border-[#1f293d] text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'
@@ -580,7 +580,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                     <button
                       type="button"
                       onClick={() => updateVideo({ characterView: 'back' })}
-                      className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-medium border transition-colors ${
+                      className={`flex-1 py-1.5 px-3 rounded-md text-xs font-medium border transition-colors ${
                         scene.video.characterView === 'back'
                           ? 'bg-indigo-600 border-indigo-500 text-white shadow-sm'
                           : 'bg-white dark:bg-[#0b0f19] border-slate-200 dark:border-[#1f293d] text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'
@@ -594,7 +594,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
 
               {/* PREVIOUS SCENE LAST FRAME INFO */}
               {isPrevSceneLastFrame && (
-                <div className="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-500/30 text-xs text-emerald-800 dark:text-emerald-300 space-y-1 animate-in fade-in duration-150">
+                <div className="p-3.5 rounded-md bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-500/30 text-xs text-emerald-800 dark:text-emerald-300 space-y-1 animate-in fade-in duration-150">
                   <div className="font-semibold flex items-center gap-1.5">
                     <CheckCircle className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                     <span>{t('seamlessPrevFrameTitle', { index })}</span>
@@ -607,7 +607,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
 
               {/* CONDITIONAL START IMAGE GENERATION FIELDS */}
               {isCustomStartImage && (
-                <div className="p-4 rounded-xl bg-slate-100/90 dark:bg-[#141d2e]/80 border border-purple-200 dark:border-purple-500/30 space-y-4 animate-in fade-in duration-200">
+                <div className="p-4 rounded-md bg-slate-100/90 dark:bg-[#141d2e]/80 border border-purple-200 dark:border-purple-500/30 space-y-4 animate-in fade-in duration-200">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-xs font-semibold text-purple-700 dark:text-purple-300">
                       <Sparkles className="w-3.5 h-3.5" />
@@ -636,7 +636,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                       <button
                         type="button"
                         onClick={() => updateVideo({ characterView: 'front' })}
-                        className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-medium border transition-all flex items-center justify-center gap-1.5 ${
+                        className={`flex-1 py-1.5 px-3 rounded-md text-xs font-medium border transition-all flex items-center justify-center gap-1.5 ${
                           (scene.video.characterView || 'front') === 'front'
                             ? 'bg-blue-600 border-blue-500 text-white shadow-sm ring-1 ring-blue-400'
                             : 'bg-white dark:bg-[#0b0f19] border-slate-200 dark:border-[#1f293d] text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'
@@ -648,7 +648,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                       <button
                         type="button"
                         onClick={() => updateVideo({ characterView: 'back' })}
-                        className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-medium border transition-all flex items-center justify-center gap-1.5 ${
+                        className={`flex-1 py-1.5 px-3 rounded-md text-xs font-medium border transition-all flex items-center justify-center gap-1.5 ${
                           scene.video.characterView === 'back'
                             ? 'bg-indigo-600 border-indigo-500 text-white shadow-sm ring-1 ring-indigo-400'
                             : 'bg-white dark:bg-[#0b0f19] border-slate-200 dark:border-[#1f293d] text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'
@@ -660,7 +660,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                       <button
                         type="button"
                         onClick={() => updateVideo({ characterView: 'none' })}
-                        className={`py-1.5 px-3 rounded-lg text-xs font-medium border transition-all ${
+                        className={`py-1.5 px-3 rounded-md text-xs font-medium border transition-all ${
                           scene.video.characterView === 'none'
                             ? 'bg-slate-700 dark:bg-gray-700 border-slate-600 dark:border-gray-500 text-white shadow-sm'
                             : 'bg-white dark:bg-[#0b0f19] border-slate-200 dark:border-[#1f293d] text-slate-400 dark:text-gray-500 hover:text-slate-700 dark:hover:text-gray-300'
@@ -675,7 +675,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                   {/* 2. PREVIOUS SCENE LAST FRAME (FOR SCENES 2+) */}
                   {index > 0 && (
                     <div
-                      className={`p-3 rounded-xl border transition-all ${
+                      className={`p-3 rounded-md border transition-all ${
                         Boolean(
                           scene.video.usePrevSceneLastFrame ||
                             scene.video.templateSource === 'prev_scene_last_frame'
@@ -740,7 +740,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                       {(scene.video.startImageReferences || []).map((img, rIdx) => (
                         <div
                           key={rIdx}
-                          className="relative group w-12 h-12 rounded-lg overflow-hidden border border-slate-200 dark:border-[#1f293d] bg-black shadow"
+                          className="relative group w-12 h-12 rounded-md overflow-hidden border border-slate-200 dark:border-[#1f293d] bg-black shadow"
                         >
                           <img
                             src={img}
@@ -766,7 +766,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                       {(scene.video.startImageReferences || []).length < 5 && (
                         <div
                           onClick={() => multiStartImageInputRef.current?.click()}
-                          className="w-12 h-12 rounded-lg border border-dashed border-slate-300 dark:border-gray-600 hover:border-purple-500 flex flex-col items-center justify-center text-slate-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-300 cursor-pointer transition-colors bg-white dark:bg-transparent"
+                          className="w-12 h-12 rounded-md border border-dashed border-slate-300 dark:border-gray-600 hover:border-purple-500 flex flex-col items-center justify-center text-slate-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-300 cursor-pointer transition-colors bg-white dark:bg-transparent"
                           title={t('addPhotoRefButton')}
                         >
                           <Plus className="w-4 h-4" />
@@ -798,7 +798,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                       value={scene.video.imageInstruction || ''}
                       onChange={(e) => updateVideo({ imageInstruction: e.target.value })}
                       placeholder={t('startInstructionPlaceholder')}
-                      className="w-full bg-white dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] focus:border-purple-500 rounded-lg p-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 outline-none resize-none transition-colors"
+                      className="w-full bg-white dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] focus:border-purple-500 rounded-md p-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 outline-none resize-none transition-colors"
                     />
                     <p className="text-[10px] text-purple-700 dark:text-purple-300/80 mt-1">
                       {t('startInstructionHint', { index })}
@@ -809,7 +809,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
 
               {/* ================= OPTIONAL LAST FRAME (for 1.5 model) ================= */}
               {isModel15 && (
-                <div className="p-4 rounded-xl bg-slate-100/90 dark:bg-[#141d2e]/80 border border-purple-200 dark:border-purple-500/30 space-y-3 animate-in fade-in duration-150">
+                <div className="p-4 rounded-md bg-slate-100/90 dark:bg-[#141d2e]/80 border border-purple-200 dark:border-purple-500/30 space-y-3 animate-in fade-in duration-150">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-semibold text-purple-700 dark:text-purple-300">
                       {t('lastFrameSectionTitle')}:
@@ -817,7 +817,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                     <select
                       value={scene.video.lastFrameMode || 'none'}
                       onChange={(e) => updateVideo({ lastFrameMode: e.target.value as LastFrameMode })}
-                      className="bg-white dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] rounded-lg px-2.5 py-1 text-xs text-slate-900 dark:text-white outline-none cursor-pointer"
+                      className="bg-white dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] rounded-md px-2.5 py-1 text-xs text-slate-900 dark:text-white outline-none cursor-pointer"
                     >
                       <option value="none">{t('lastFrameNone')}</option>
                       <option value="character_ref">{t('lastFrameCharRef')}</option>
@@ -828,7 +828,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
 
                   {/* DIRECT CHARACTER REFERENCE AS LAST FRAME */}
                   {scene.video.lastFrameMode === 'character_ref' && (
-                    <div className="p-3.5 rounded-xl bg-slate-100/60 dark:bg-[#141d2e]/60 border border-purple-200 dark:border-purple-500/20 space-y-2.5 animate-in fade-in duration-150">
+                    <div className="p-3.5 rounded-md bg-slate-100/60 dark:bg-[#141d2e]/60 border border-purple-200 dark:border-purple-500/20 space-y-2.5 animate-in fade-in duration-150">
                       <label className="block text-[11px] font-medium text-slate-700 dark:text-gray-300">
                         {t('lastFrameCharViewTitle')}:
                       </label>
@@ -836,7 +836,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                         <button
                           type="button"
                           onClick={() => updateVideo({ lastFrameCharacterView: 'front' })}
-                          className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-medium border transition-colors flex items-center justify-center gap-1.5 ${
+                          className={`flex-1 py-1.5 px-3 rounded-md text-xs font-medium border transition-colors flex items-center justify-center gap-1.5 ${
                             (scene.video.lastFrameCharacterView || 'front') === 'front'
                               ? 'bg-blue-600 border-blue-500 text-white shadow-sm'
                               : 'bg-white dark:bg-[#0b0f19] border-slate-200 dark:border-[#1f293d] text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'
@@ -848,7 +848,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                         <button
                           type="button"
                           onClick={() => updateVideo({ lastFrameCharacterView: 'back' })}
-                          className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-medium border transition-colors flex items-center justify-center gap-1.5 ${
+                          className={`flex-1 py-1.5 px-3 rounded-md text-xs font-medium border transition-colors flex items-center justify-center gap-1.5 ${
                             scene.video.lastFrameCharacterView === 'back'
                               ? 'bg-indigo-600 border-indigo-500 text-white shadow-sm'
                               : 'bg-white dark:bg-[#0b0f19] border-slate-200 dark:border-[#1f293d] text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'
@@ -881,7 +881,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                           <button
                             type="button"
                             onClick={() => updateVideo({ lastFrameCharacterView: 'front' })}
-                            className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-medium border transition-all flex items-center justify-center gap-1.5 ${
+                            className={`flex-1 py-1.5 px-3 rounded-md text-xs font-medium border transition-all flex items-center justify-center gap-1.5 ${
                               (scene.video.lastFrameCharacterView || 'front') === 'front'
                                 ? 'bg-blue-600 border-blue-500 text-white shadow-sm ring-1 ring-blue-400'
                                 : 'bg-white dark:bg-[#0b0f19] border-slate-200 dark:border-[#1f293d] text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'
@@ -893,7 +893,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                           <button
                             type="button"
                             onClick={() => updateVideo({ lastFrameCharacterView: 'back' })}
-                            className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-medium border transition-all flex items-center justify-center gap-1.5 ${
+                            className={`flex-1 py-1.5 px-3 rounded-md text-xs font-medium border transition-all flex items-center justify-center gap-1.5 ${
                               scene.video.lastFrameCharacterView === 'back'
                                 ? 'bg-indigo-600 border-indigo-500 text-white shadow-sm ring-1 ring-indigo-400'
                                 : 'bg-white dark:bg-[#0b0f19] border-slate-200 dark:border-[#1f293d] text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'
@@ -905,7 +905,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                           <button
                             type="button"
                             onClick={() => updateVideo({ lastFrameCharacterView: 'none' })}
-                            className={`py-1.5 px-3 rounded-lg text-xs font-medium border transition-all ${
+                            className={`py-1.5 px-3 rounded-md text-xs font-medium border transition-all ${
                               scene.video.lastFrameCharacterView === 'none'
                                 ? 'bg-slate-700 dark:bg-gray-700 border-slate-600 dark:border-gray-500 text-white shadow-sm'
                                 : 'bg-white dark:bg-[#0b0f19] border-slate-200 dark:border-[#1f293d] text-slate-400 dark:text-gray-500 hover:text-slate-700 dark:hover:text-gray-300'
@@ -929,7 +929,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                           value={scene.video.lastFrameInstruction || ''}
                           onChange={(e) => updateVideo({ lastFrameInstruction: e.target.value })}
                           placeholder={t('lastFrameInstructionPlaceholder')}
-                          className="w-full bg-white dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] focus:border-purple-500 rounded-lg p-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 outline-none resize-none transition-colors"
+                          className="w-full bg-white dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] focus:border-purple-500 rounded-md p-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 outline-none resize-none transition-colors"
                         />
                       </div>
 
@@ -948,7 +948,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                           {(scene.video.lastFrameReferences || []).map((img, rIdx) => (
                             <div
                               key={rIdx}
-                              className="relative group w-12 h-12 rounded-lg overflow-hidden border border-slate-200 dark:border-[#1f293d] bg-black shadow"
+                              className="relative group w-12 h-12 rounded-md overflow-hidden border border-slate-200 dark:border-[#1f293d] bg-black shadow"
                             >
                               <img
                                 src={img}
@@ -974,7 +974,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                           {(scene.video.lastFrameReferences || []).length < 5 && (
                             <div
                               onClick={() => multiLastFrameInputRef.current?.click()}
-                              className="w-12 h-12 rounded-lg border border-dashed border-slate-300 dark:border-gray-600 hover:border-purple-500 flex flex-col items-center justify-center text-slate-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-300 cursor-pointer transition-colors bg-white dark:bg-transparent"
+                              className="w-12 h-12 rounded-md border border-dashed border-slate-300 dark:border-gray-600 hover:border-purple-500 flex flex-col items-center justify-center text-slate-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-300 cursor-pointer transition-colors bg-white dark:bg-transparent"
                               title={t('lastFrameRefsTitle')}
                             >
                               <Plus className="w-4 h-4" />
@@ -1001,7 +1001,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                   {scene.video.lastFrameMode === 'custom_upload' && (
                     <div className="flex items-center gap-3">
                       {scene.video.lastFrameImage ? (
-                        <div className="relative group w-16 h-16 rounded-lg overflow-hidden border border-slate-200 dark:border-[#1f293d] bg-black">
+                        <div className="relative group w-16 h-16 rounded-md overflow-hidden border border-slate-200 dark:border-[#1f293d] bg-black">
                           <img
                             src={scene.video.lastFrameImage}
                             alt="Last Frame"
@@ -1017,7 +1017,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                       ) : (
                         <div
                           onClick={() => lastFrameInputRef.current?.click()}
-                          className="w-16 h-16 rounded-lg border border-dashed border-slate-300 dark:border-gray-600 hover:border-purple-500 flex flex-col items-center justify-center text-slate-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-300 cursor-pointer transition-colors bg-white dark:bg-transparent"
+                          className="w-16 h-16 rounded-md border border-dashed border-slate-300 dark:border-gray-600 hover:border-purple-500 flex flex-col items-center justify-center text-slate-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-300 cursor-pointer transition-colors bg-white dark:bg-transparent"
                         >
                           <Upload className="w-4 h-4 mb-0.5" />
                           <span className="text-[9px]">{t('lastFrameUploadTitle')}</span>
@@ -1045,12 +1045,12 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                   value={scene.video.videoPrompt}
                   onChange={(e) => updateVideo({ videoPrompt: e.target.value })}
                   placeholder={t('videoPromptPlaceholder')}
-                  className="w-full bg-white dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] focus:border-blue-500 rounded-xl p-3 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 outline-none resize-none leading-relaxed transition-colors"
+                  className="w-full bg-white dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] focus:border-blue-500 rounded-md p-3 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 outline-none resize-none leading-relaxed transition-colors"
                 />
               </div>
 
               {/* TRANSITIONS: FADE IN FROM BLACK & FADE OUT TO BLACK */}
-              <div className="p-3.5 rounded-xl bg-slate-100/70 dark:bg-[#141d2e]/70 border border-slate-200 dark:border-[#1f293d] space-y-3 transition-colors">
+              <div className="p-3.5 rounded-md bg-slate-100/70 dark:bg-[#141d2e]/70 border border-slate-200 dark:border-[#1f293d] space-y-3 transition-colors">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Sliders className="w-3.5 h-3.5 text-blue-500 dark:text-blue-400" />
@@ -1068,7 +1068,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                   {/* FADE IN FROM BLACK */}
                   <div
-                    className={`p-2.5 rounded-lg border transition-all ${
+                    className={`p-2.5 rounded-md border transition-all ${
                       scene.video.transition?.fadeIn
                         ? 'bg-blue-50 dark:bg-blue-950/20 border-blue-300 dark:border-blue-500/40 text-blue-900 dark:text-blue-200'
                         : 'bg-white dark:bg-[#0b0f19] border-slate-200 dark:border-[#1f293d] text-slate-600 dark:text-gray-400'
@@ -1130,7 +1130,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
 
                   {/* FADE OUT TO BLACK */}
                   <div
-                    className={`p-2.5 rounded-lg border transition-all ${
+                    className={`p-2.5 rounded-md border transition-all ${
                       scene.video.transition?.fadeOut
                         ? 'bg-purple-50 dark:bg-purple-950/20 border-purple-300 dark:border-purple-500/40 text-purple-900 dark:text-purple-200'
                         : 'bg-white dark:bg-[#0b0f19] border-slate-200 dark:border-[#1f293d] text-slate-600 dark:text-gray-400'
@@ -1196,7 +1196,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
         </div>
 
         {/* ==================== RIGHT COLUMN: AUDIO (grok-tts) ==================== */}
-        <div className="space-y-5 bg-slate-50/70 dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] rounded-xl p-5 transition-colors">
+        <div className="space-y-5 bg-slate-50/70 dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] rounded-md p-5 transition-colors">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Mic className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
@@ -1221,7 +1221,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
           </div>
 
           {!scene.audio.useTts ? (
-            <div className="p-8 text-center text-slate-400 dark:text-gray-500 border border-dashed border-slate-300 dark:border-[#1f293d] rounded-xl">
+            <div className="p-8 text-center text-slate-400 dark:text-gray-500 border border-dashed border-slate-300 dark:border-[#1f293d] rounded-md">
               <VolumeX className="w-8 h-8 mx-auto mb-2 opacity-50" />
               <p className="text-xs">{t('ttsDisabledNotice')}</p>
               <p className="text-[11px] text-slate-400 dark:text-gray-600 mt-1">
@@ -1232,7 +1232,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
             <div className="space-y-4">
               {/* Simultaneous audio notice */}
               {scene.video.generateAudio !== false && (
-                <div className="p-2.5 rounded-lg bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-500/30 text-[11px] text-blue-800 dark:text-blue-300 flex items-start gap-2">
+                <div className="p-2.5 rounded-md bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-500/30 text-[11px] text-blue-800 dark:text-blue-300 flex items-start gap-2">
                   <Volume2 className="w-4 h-4 text-blue-500 dark:text-blue-400 flex-shrink-0 mt-0.5" />
                   <div>
                     <span className="font-semibold text-blue-900 dark:text-blue-200">
@@ -1252,7 +1252,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                 <button
                   type="button"
                   onClick={handleAddTrack}
-                  className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-600/15 hover:bg-emerald-600/25 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 text-xs font-medium transition-colors"
+                  className="flex items-center gap-1 px-3 py-1.5 rounded-md bg-emerald-600/15 hover:bg-emerald-600/25 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 text-xs font-medium transition-colors"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>{t('addReplicaButton')}</span>
@@ -1264,7 +1264,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                 {tracks.map((track, tIdx) => (
                   <div
                     key={track.id}
-                    className="p-3.5 rounded-xl bg-white dark:bg-[#141d2e] border border-slate-200 dark:border-[#1f293d] space-y-3 relative group shadow-sm dark:shadow-none"
+                    className="p-3.5 rounded-md bg-white dark:bg-[#141d2e] border border-slate-200 dark:border-[#1f293d] space-y-3 relative group shadow-sm dark:shadow-none"
                   >
                     <div className="flex items-center justify-between">
                       <span className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
@@ -1288,7 +1288,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                       value={track.phrase}
                       onChange={(e) => handleUpdateTrack(track.id, { phrase: e.target.value })}
                       placeholder={t('replicaTextPlaceholder')}
-                      className="w-full bg-slate-50 dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] focus:border-emerald-500 rounded-lg p-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 outline-none resize-none leading-relaxed transition-colors"
+                      className="w-full bg-slate-50 dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] focus:border-emerald-500 rounded-md p-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 outline-none resize-none leading-relaxed transition-colors"
                     />
 
                     {/* Voice and Offset grid */}
@@ -1300,7 +1300,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                         <select
                           value={track.voiceId}
                           onChange={(e) => handleUpdateTrack(track.id, { voiceId: e.target.value })}
-                          className="w-full bg-slate-50 dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] focus:border-emerald-500 rounded-lg px-2.5 py-1 text-xs text-slate-900 dark:text-white outline-none cursor-pointer transition-colors"
+                          className="w-full bg-slate-50 dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] focus:border-emerald-500 rounded-md px-2.5 py-1 text-xs text-slate-900 dark:text-white outline-none cursor-pointer transition-colors"
                         >
                           {XAI_VOICES.map((v) => (
                             <option key={v.id} value={v.id}>
@@ -1325,7 +1325,7 @@ export const SceneCard: React.FC<SceneCardProps> = ({
                             onChange={(e) =>
                               handleUpdateTrack(track.id, { audioOffset: Math.max(0, Number(e.target.value)) })
                             }
-                            className="w-full bg-slate-50 dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] focus:border-emerald-500 rounded-lg px-2.5 py-1 text-xs text-slate-900 dark:text-white outline-none transition-colors"
+                            className="w-full bg-slate-50 dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] focus:border-emerald-500 rounded-md px-2.5 py-1 text-xs text-slate-900 dark:text-white outline-none transition-colors"
                           />
                         </div>
                       </div>

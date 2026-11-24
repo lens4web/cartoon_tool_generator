@@ -51,11 +51,11 @@ export const CharacterSection: React.FC<CharacterSectionProps> = ({
   const isConfigured = Boolean(character.frontImage || character.backImage);
 
   return (
-    <section className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-[#1f293d] rounded-2xl p-6 shadow-sm dark:shadow-xl mb-8 transition-colors duration-200">
+    <section className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-[#1f293d] rounded-lg p-6 shadow-sm dark:shadow-xl mb-8 transition-colors duration-200">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0">
+          <div className="w-9 h-9 rounded-md bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0">
             <User className="w-5 h-5" />
           </div>
           <div>
@@ -86,7 +86,7 @@ export const CharacterSection: React.FC<CharacterSectionProps> = ({
             value={character.name}
             onChange={(e) => onChange({ ...character, name: e.target.value })}
             placeholder={t('characterNamePlaceholder')}
-            className="bg-slate-50 dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] focus:border-purple-500 rounded-lg px-3 py-1.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 outline-none w-44 transition-colors"
+            className="bg-slate-50 dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] focus:border-purple-500 rounded-md px-3 py-1.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 outline-none w-44 transition-colors"
           />
         </div>
       </div>
@@ -94,7 +94,7 @@ export const CharacterSection: React.FC<CharacterSectionProps> = ({
       {/* Two Columns: Front View & Back View */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {/* Front View */}
-        <div className="bg-slate-50/70 dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] rounded-xl p-4 flex flex-col justify-between transition-colors">
+        <div className="bg-slate-50/70 dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] rounded-md p-4 flex flex-col justify-between transition-colors">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-blue-500" />
@@ -114,7 +114,7 @@ export const CharacterSection: React.FC<CharacterSectionProps> = ({
           </div>
 
           {character.frontImage ? (
-            <div className="relative group rounded-lg overflow-hidden border border-slate-200 dark:border-[#1f293d] bg-slate-100 dark:bg-black/40 aspect-[9/12] max-h-56 flex items-center justify-center">
+            <div className="relative group rounded-md overflow-hidden border border-slate-200 dark:border-[#1f293d] bg-slate-100 dark:bg-black/40 aspect-[9/12] max-h-56 flex items-center justify-center">
               <img
                 src={character.frontImage}
                 alt="Front View"
@@ -123,7 +123,7 @@ export const CharacterSection: React.FC<CharacterSectionProps> = ({
               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                 <button
                   onClick={() => frontInputRef.current?.click()}
-                  className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium flex items-center gap-1.5 shadow"
+                  className="px-3 py-1.5 rounded-md bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium flex items-center gap-1.5 shadow"
                 >
                   <Upload className="w-3.5 h-3.5" />
                   <span>{t('replacePhoto')}</span>
@@ -133,7 +133,7 @@ export const CharacterSection: React.FC<CharacterSectionProps> = ({
           ) : (
             <div
               onClick={() => frontInputRef.current?.click()}
-              className="border-2 border-dashed border-slate-300 dark:border-[#1f293d] hover:border-blue-500/50 rounded-xl p-6 flex flex-col items-center justify-center gap-2.5 text-center cursor-pointer transition-colors group aspect-[9/12] max-h-56"
+              className="border-2 border-dashed border-slate-300 dark:border-[#1f293d] hover:border-blue-500/50 rounded-md p-6 flex flex-col items-center justify-center gap-2.5 text-center cursor-pointer transition-colors group aspect-[9/12] max-h-56"
             >
               <div className="w-10 h-10 rounded-full bg-blue-500/10 group-hover:bg-blue-500/20 text-blue-500 dark:text-blue-400 flex items-center justify-center transition-colors">
                 <ImageIcon className="w-5 h-5" />
@@ -156,7 +156,7 @@ export const CharacterSection: React.FC<CharacterSectionProps> = ({
         </div>
 
         {/* Back View */}
-        <div className="bg-slate-50/70 dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] rounded-xl p-4 flex flex-col justify-between transition-colors">
+        <div className="bg-slate-50/70 dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] rounded-md p-4 flex flex-col justify-between transition-colors">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-indigo-500" />
@@ -176,7 +176,7 @@ export const CharacterSection: React.FC<CharacterSectionProps> = ({
           </div>
 
           {character.backImage ? (
-            <div className="relative group rounded-lg overflow-hidden border border-slate-200 dark:border-[#1f293d] bg-slate-100 dark:bg-black/40 aspect-[9/12] max-h-56 flex items-center justify-center">
+            <div className="relative group rounded-md overflow-hidden border border-slate-200 dark:border-[#1f293d] bg-slate-100 dark:bg-black/40 aspect-[9/12] max-h-56 flex items-center justify-center">
               <img
                 src={character.backImage}
                 alt="Back View"
@@ -185,7 +185,7 @@ export const CharacterSection: React.FC<CharacterSectionProps> = ({
               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                 <button
                   onClick={() => backInputRef.current?.click()}
-                  className="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium flex items-center gap-1.5 shadow"
+                  className="px-3 py-1.5 rounded-md bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium flex items-center gap-1.5 shadow"
                 >
                   <Upload className="w-3.5 h-3.5" />
                   <span>{t('replacePhoto')}</span>
@@ -195,7 +195,7 @@ export const CharacterSection: React.FC<CharacterSectionProps> = ({
           ) : (
             <div
               onClick={() => backInputRef.current?.click()}
-              className="border-2 border-dashed border-slate-300 dark:border-[#1f293d] hover:border-indigo-500/50 rounded-xl p-6 flex flex-col items-center justify-center gap-2.5 text-center cursor-pointer transition-colors group aspect-[9/12] max-h-56"
+              className="border-2 border-dashed border-slate-300 dark:border-[#1f293d] hover:border-indigo-500/50 rounded-md p-6 flex flex-col items-center justify-center gap-2.5 text-center cursor-pointer transition-colors group aspect-[9/12] max-h-56"
             >
               <div className="w-10 h-10 rounded-full bg-indigo-500/10 group-hover:bg-indigo-500/20 text-indigo-500 dark:text-indigo-400 flex items-center justify-center transition-colors">
                 <ImageIcon className="w-5 h-5" />

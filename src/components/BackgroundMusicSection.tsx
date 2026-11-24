@@ -49,11 +49,11 @@ export const BackgroundMusicSection: React.FC<BackgroundMusicSectionProps> = ({
   };
 
   return (
-    <section className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-[#1f293d] rounded-2xl p-6 shadow-sm dark:shadow-xl mb-8 transition-colors duration-200">
+    <section className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-[#1f293d] rounded-lg p-6 shadow-sm dark:shadow-xl mb-8 transition-colors duration-200">
       {/* Header Bar */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 dark:text-amber-400 shrink-0">
+          <div className="w-9 h-9 rounded-md bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 dark:text-amber-400 shrink-0">
             <Music className="w-5 h-5" />
           </div>
           <div>
@@ -92,7 +92,7 @@ export const BackgroundMusicSection: React.FC<BackgroundMusicSectionProps> = ({
       {music.enabled ? (
         <div className="space-y-4 pt-2">
           {music.audioUrl ? (
-            <div className="bg-slate-50/70 dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] rounded-xl p-4 space-y-4 transition-colors">
+            <div className="bg-slate-50/70 dark:bg-[#0b0f19] border border-slate-200 dark:border-[#1f293d] rounded-md p-4 space-y-4 transition-colors">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-center gap-2 text-xs text-slate-800 dark:text-gray-300 font-medium">
                   <Music className="w-4 h-4 text-amber-500 dark:text-amber-400" />
@@ -159,7 +159,7 @@ export const BackgroundMusicSection: React.FC<BackgroundMusicSectionProps> = ({
           ) : (
             <div
               onClick={() => fileInputRef.current?.click()}
-              className="border-2 border-dashed border-slate-300 dark:border-[#1f293d] hover:border-amber-500/50 rounded-xl p-6 text-center cursor-pointer transition-colors group bg-slate-50/70 dark:bg-[#0b0f19]"
+              className="border-2 border-dashed border-slate-300 dark:border-[#1f293d] hover:border-amber-500/50 rounded-md p-6 text-center cursor-pointer transition-colors group bg-slate-50/70 dark:bg-[#0b0f19]"
             >
               <div className="w-10 h-10 rounded-full bg-amber-500/10 group-hover:bg-amber-500/20 text-amber-500 dark:text-amber-400 flex items-center justify-center mx-auto mb-2 transition-colors">
                 <Upload className="w-5 h-5" />
@@ -181,7 +181,7 @@ export const BackgroundMusicSection: React.FC<BackgroundMusicSectionProps> = ({
           />
         </div>
       ) : (
-        <div className="p-4 text-center text-slate-400 dark:text-gray-500 border border-dashed border-slate-200 dark:border-[#1f293d] rounded-xl text-xs bg-slate-50/50 dark:bg-[#0b0f19]/50">
+        <div className="p-4 text-center text-slate-400 dark:text-gray-500 border border-dashed border-slate-200 dark:border-[#1f293d] rounded-md text-xs bg-slate-50/50 dark:bg-[#0b0f19]/50">
           {t('bgMusicSectionSubtitle')}
         </div>
       )}

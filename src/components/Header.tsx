@@ -83,7 +83,7 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
         {/* Brand / Logo */}
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/20 text-white shrink-0">
+          <div className="w-10 h-10 rounded-lg bg-gradient-to-tr from-blue-600 via-indigo-600 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/20 text-white shrink-0">
             <Clapperboard className="w-5 h-5" />
           </div>
           <div>
@@ -104,11 +104,11 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Action Controls */}
         <div className="flex items-center flex-wrap gap-2.5 sm:gap-3">
           {/* Theme & Language Toggles */}
-          <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-[#141d2e] border border-slate-200 dark:border-[#1f293d] rounded-lg p-0.5">
+          <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-[#141d2e] border border-slate-200 dark:border-[#1f293d] rounded-md p-0.5">
             {/* Language Switcher */}
             <button
               onClick={toggleLanguage}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-semibold text-slate-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-200/70 dark:hover:bg-[#1c2940] transition-colors"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-sm text-xs font-semibold text-slate-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-200/70 dark:hover:bg-[#1c2940] transition-colors"
               title={t('languageToggle')}
             >
               <Globe className="w-3.5 h-3.5 text-blue-500 dark:text-blue-400" />
@@ -122,7 +122,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Theme Switcher */}
             <button
               onClick={toggleTheme}
-              className="p-1.5 rounded-md text-slate-600 dark:text-gray-300 hover:text-amber-500 dark:hover:text-amber-400 hover:bg-slate-200/70 dark:hover:bg-[#1c2940] transition-colors"
+              className="p-1.5 rounded-sm text-slate-600 dark:text-gray-300 hover:text-amber-500 dark:hover:text-amber-400 hover:bg-slate-200/70 dark:hover:bg-[#1c2940] transition-colors"
               title={theme === 'dark' ? t('themeToggleLight') : t('themeToggleDark')}
               aria-label="Toggle theme"
             >
@@ -137,7 +137,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* API Key Status / Button */}
           <button
             onClick={onOpenApiKeyModal}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-medium border transition-colors ${
+            className={`flex items-center gap-2 px-3.5 py-2 rounded-md text-xs font-medium border transition-colors ${
               apiKey
                 ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20'
                 : 'bg-amber-500/10 border-amber-500/30 text-amber-600 dark:text-amber-400 hover:bg-amber-500/20 animate-pulse'
@@ -154,17 +154,17 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
 
           {/* Project JSON Export / Import */}
-          <div className="flex items-center bg-slate-100 dark:bg-[#141d2e] border border-slate-200 dark:border-[#1f293d] rounded-lg p-0.5">
+          <div className="flex items-center bg-slate-100 dark:bg-[#141d2e] border border-slate-200 dark:border-[#1f293d] rounded-md p-0.5">
             <button
               onClick={onExportProject}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium text-slate-700 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/80 dark:hover:bg-[#1c2940] transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-medium text-slate-700 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/80 dark:hover:bg-[#1c2940] transition-colors"
               title={t('exportJsonTooltip')}
             >
               <FileCode className="w-3.5 h-3.5 text-blue-500 dark:text-blue-400" />
               <span>{t('exportJson')}</span>
             </button>
 
-            <label className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium text-slate-700 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/80 dark:hover:bg-[#1c2940] transition-colors cursor-pointer">
+            <label className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-medium text-slate-700 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/80 dark:hover:bg-[#1c2940] transition-colors cursor-pointer">
               <Upload className="w-3.5 h-3.5 text-purple-500 dark:text-purple-400" />
               <span>{t('importJson')}</span>
               <input
@@ -178,7 +178,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               onClick={onResetProject}
-              className="p-1.5 rounded-md text-slate-500 dark:text-gray-400 hover:text-rose-500 dark:hover:text-rose-400 hover:bg-slate-200/80 dark:hover:bg-[#1c2940] transition-colors"
+              className="p-1.5 rounded-sm text-slate-500 dark:text-gray-400 hover:text-rose-500 dark:hover:text-rose-400 hover:bg-slate-200/80 dark:hover:bg-[#1c2940] transition-colors"
               title={t('resetProject')}
             >
               <RotateCcw className="w-3.5 h-3.5" />
@@ -190,7 +190,7 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={onStartGeneration}
             disabled={!canGenerate || isGenerating}
             title={`${t('timingLabel')}: ${formatDuration(estimatedCost.totalDurationSeconds ?? 0)}\n${scenesLabel}\n\nUSD: ~$${estimatedCost.totalUsd} (~${estimatedCost.totalRub} ₽)`}
-            className={`flex items-center gap-3 px-5 py-2 rounded-xl text-xs font-semibold shadow-lg transition-all ${
+            className={`flex items-center gap-3 px-5 py-2 rounded-md text-xs font-semibold shadow-lg transition-all ${
               isGenerating
                 ? 'bg-blue-600/50 text-blue-100 cursor-not-allowed border border-blue-400/30'
                 : canGenerate

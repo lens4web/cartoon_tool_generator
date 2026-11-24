@@ -642,7 +642,7 @@ export default function CartoonStudioPage() {
         {/* Scene Constructor Header */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
+            <div className="w-9 h-9 rounded-md bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
               <Clapperboard className="w-5 h-5" />
             </div>
             <div>
@@ -669,7 +669,7 @@ export default function CartoonStudioPage() {
 
           <button
             onClick={handleAddScene}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shadow-lg shadow-blue-600/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
+            className="flex items-center gap-2 px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shadow-lg shadow-blue-600/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
             <Plus className="w-4 h-4" />
             <span>{t('addSceneButton')}</span>
@@ -699,7 +699,7 @@ export default function CartoonStudioPage() {
         <div className="mt-6 flex justify-center">
           <button
             onClick={handleAddScene}
-            className="flex items-center gap-2 px-6 py-2.5 rounded-xl border border-dashed border-slate-300 dark:border-gray-700 hover:border-blue-500 text-slate-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-xs font-semibold transition-colors bg-white/50 dark:bg-transparent"
+            className="flex items-center gap-2 px-6 py-2.5 rounded-md border border-dashed border-slate-300 dark:border-gray-700 hover:border-blue-500 text-slate-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-xs font-semibold transition-colors bg-white/50 dark:bg-transparent"
           >
             <Plus className="w-4 h-4" />
             <span>{t('addSceneButton')}</span>
